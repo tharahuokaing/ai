@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Huokaingthara Sentient OS v6.0</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="auth.js"></script>
+
+<div id="login-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:black; z-index:10000; display:flex; align-items:center; justify-content:center; flex-direction:column; border: 2px solid var(--holo-blue);">
+    <h2 style="color:var(--holo-blue); text-shadow: 0 0 10px var(--holo-blue);">CORE ACCESS REQUIRED</h2>
+    <input type="text" id="u" placeholder="Username" style="margin-bottom:10px; padding:10px; background:rgba(0,242,255,0.1); border:1px solid var(--holo-blue); color:white;">
+    <input type="password" id="p" placeholder="Password" style="margin-bottom:10px; padding:10px; background:rgba(0,242,255,0.1); border:1px solid var(--holo-blue); color:white;">
+    <button onclick="validateAccess()" style="padding:10px 20px; background:transparent; border:1px solid var(--holo-blue); color:var(--holo-blue); cursor:pointer;">DECRYPT & ENTER</button>
+</div>
+    
     <style>
         :root {
             --holo-blue: #00f2ff;
