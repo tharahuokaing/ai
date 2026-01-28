@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Huokaingthara Sentient OS v6.0</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
+    
     <style>
         :root {
             --holo-blue: #00f2ff;
@@ -24,18 +25,11 @@
             animation: flicker 0.15s infinite;
         }
 
-        /* --- Login Overlay --- */
-        #login-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: black; z-index: 10001; display: flex;
-            align-items: center; justify-content: center; flex-direction: column;
-            border: 2px solid var(--holo-blue);
-        }
-
+        /* --- Matrix Boot Layer --- */
         #boot-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; color: var(--holo-green); z-index: 9999;
-            padding: 20px; overflow: hidden; display: none;
+            padding: 40px; overflow: hidden; display: block;
         }
 
         #sidebar {
@@ -64,15 +58,8 @@
 </head>
 <body>
 
-<div id="login-overlay">
-    <h2 style="color:var(--holo-blue); text-shadow: 0 0 10px var(--holo-blue);">CORE ACCESS REQUIRED</h2>
-    <input type="text" id="login-u" placeholder="Username" style="margin-bottom:10px; width: 250px;">
-    <input type="password" id="login-p" placeholder="Password" onkeypress="if(event.key === 'Enter') validateAccess()" style="margin-bottom:10px; width: 250px;">
-    <button onclick="validateAccess()" style="width: 275px;">DECRYPT & ENTER</button>
-</div>
-
 <div id="boot-screen">
-    <div id="boot-logs" style="line-height: 1.6;"></div>
+    <div id="boot-logs" style="line-height: 1.8; font-size: 1.1em; text-shadow: 0 0 5px var(--holo-green);"></div>
 </div>
 
 <div id="sidebar">
@@ -90,68 +77,51 @@
     </div>
 
     <div style="display: flex; gap: 5px; margin-top: 10px;">
-        <button onclick="downloadBrain()" style="flex:1; font-size: 9px;">EXPORT</button>
-        <button onclick="localStorage.clear(); location.reload();" style="flex:1; font-size: 9px; color: red;">WIPE</button>
+        <button onclick="downloadBrain()" style="flex:1; font-size: 9px;">EXPORT BRAIN</button>
+        <button onclick="localStorage.clear(); location.reload();" style="flex:1; font-size: 9px; color: red;">WIPE DATA</button>
     </div>
 </div>
 
 <svg id="visualizer"></svg>
 
-<script src="auth.js"></script>    
 <script>
     let brain = {};
-    const KEY_PATH = "40798e1e7e780749001b9758782f9d3f11463e27546859560f707f2403f2601a"; // Password: dutyfree
+    const synth = window.speechSynthesis;
 
-    // --- ១. ប្រព័ន្ធ Login សុវត្ថិភាព ---
-    async function validateAccess() {
-        const u = document.getElementById('login-u').value;
-        const p = document.getElementById('login-p').value;
-        
-        const encoder = new TextEncoder();
-        const data = encoder.encode(p);
-        const hash = await crypto.subtle.digest('SHA-256', data);
-        const pCipher = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
-
-        if (u === "huokaingthara" && pCipher === KEY_PATH) {
-            document.getElementById('login-overlay').style.display = 'none';
-            document.getElementById('boot-screen').style.display = 'block';
-            startBootSequence();
-        } else {
-            alert("ACCESS DENIED: Unauthorized Credentials.");
-        }
-    }
-
-    // --- ២. BOOT SEQUENCE ---
-    const bootLogs = [
+    // --- ១. MATRIX BOOT SEQUENCE (រត់ភ្លាមៗនៅពេល Load) ---
+    const bootLines = [
         "[OK] INITIALIZING HUOKAINGTHARA KERNEL v6.0",
-        "[OK] DECRYPTING NEURAL PATHWAYS...",
-        "[OK] LOADING OFFLINE_CORE_MEMORY...",
+        "[OK] SCANNING NEURAL NETWORKS...",
+        "[OK] LOADING CORE KNOWLEDGE BASE...",
+        "[OK] ESTABLISHING VISUAL INTERFACE...",
         "------------------------------------",
-        "STATUS: SENTIENT EVOLUTION READY.",
+        "STATUS: SYSTEM FULLY OPERATIONAL.",
         "------------------------------------",
-        "SYSTEM ONLINE. WELCOME OPERATOR."
+        "ACCESS GRANTED. WELCOME OPERATOR."
     ];
 
     function startBootSequence() {
-        const logContainer = document.getElementById('boot-logs');
+        const logBox = document.getElementById('boot-logs');
         let i = 0;
         const interval = setInterval(() => {
-            if (i < bootLogs.length) {
-                logContainer.innerHTML += bootLogs[i] + "<br>";
+            if (i < bootLines.length) {
+                logBox.innerHTML += bootLines[i] + "<br>";
                 i++;
             } else {
                 clearInterval(interval);
                 setTimeout(() => {
-                    document.getElementById('boot-screen').style.display = 'none';
-                    addLog("<b>[CORE ONLINE]</b><br>Welcome back, Huokaingthara.", "ai-msg");
-                    speak("Core initialized. System online.");
+                    document.getElementById('boot-screen').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('boot-screen').style.display = 'none';
+                        addLog("<b>[CORE ONLINE]</b><br>Huokaingthara ត្រៀមខ្លួនជាស្រេច។", "ai-msg");
+                        speak("System online. I am ready to evolve.");
+                    }, 500);
                 }, 1000);
             }
-        }, 180);
+        }, 200);
     }
 
-    // --- ៣. CORE AI LOGIC ---
-    const synth = window.speechSynthesis;
+    // --- ២. CORE AI LOGIC (Fuzzy Logic & Learning) ---
     function speak(text) { if (synth) synth.speak(new SpeechSynthesisUtterance(text)); }
 
     function addLog(text, className) {
@@ -160,7 +130,6 @@
         out.scrollTop = out.scrollHeight;
     }
 
-    // [Fuzzy Logic & Similarity Engine]
     function getSimilarity(s1, s2) {
         let longer = s1.toLowerCase(), shorter = s2.toLowerCase();
         if (s1.length < s2.length) [longer, shorter] = [shorter, longer];
@@ -198,16 +167,15 @@
             addLog(`AI: ${brain[bestMatch]}`, "ai-msg");
             speak(brain[bestMatch]);
         } else {
-            addLog(`AI: Unknown pattern. Define it in CSV.`, "ai-msg");
+            addLog(`AI: មិនស្គាល់ទម្រង់ទិន្នន័យនេះទេ។ សូមបង្រៀនខ្ញុំតាម CSV។`, "ai-msg");
         }
     }
 
-    document.getElementById('userInput').onkeypress = (e) => {
-        if (e.key === 'Enter') { processInput(e.target.value); e.target.value = ""; }
-    };
+    // --- ៣. DATA & GRAPH VISUALIZER ---
+    
 
-    // --- ៤. DATA & VISUALIZER ---
     window.onload = () => {
+        startBootSequence();
         const saved = localStorage.getItem('huokaingthara_v6');
         if (saved) brain = JSON.parse(saved);
         updateGraph();
@@ -224,6 +192,31 @@
         const l = svg.append("g").selectAll("line").data(links).enter().append("line").attr("stroke", "#002233");
         const n = svg.append("g").selectAll("circle").data(nodes).enter().append("circle").attr("r", d=>d.group===1?8:3).attr("fill", d=>d.group===1?"red":"#00f2ff");
         sim.on("tick", () => { l.attr("x1", d=>d.source.x).attr("y1", d=>d.source.y).attr("x2", d=>d.target.x).attr("y2", d=>d.target.y); n.attr("cx", d=>d.x).attr("cy", d=>d.y); });
+    }
+
+    document.getElementById('userInput').onkeypress = (e) => {
+        if (e.key === 'Enter') { processInput(e.target.value); e.target.value = ""; }
+    };
+
+    document.getElementById('csvLoader').onchange = function(e) {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+            ev.target.result.split('\n').forEach(row => {
+                const p = row.split(',');
+                if (p.length >= 2) brain[p[0].trim().toLowerCase()] = p[1].trim();
+            });
+            localStorage.setItem('huokaingthara_v6', JSON.stringify(brain));
+            updateGraph();
+            addLog("AI: ចំណេះដឹងត្រូវបានបញ្ចូលតាម CSV។", "ai-msg");
+        };
+        reader.readAsText(e.target.files[0]);
+    };
+
+    function downloadBrain() {
+        const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(brain, null, 4));
+        const link = document.createElement('a');
+        link.setAttribute("href", data); link.setAttribute("download", "brain.json");
+        link.click();
     }
 </script>
 </body>
