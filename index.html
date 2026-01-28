@@ -3,43 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huokaingthara Voice Singularity AI</title>
+    <title>Huokaingthara Sentient OS v6.0</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <style>
-        :root { --glow: #00ff41; --bg: #050505; }
-        body { background: var(--bg); color: var(--glow); font-family: 'Courier New', monospace; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        :root { --neon: #00ff41; --dim: #004411; --bg: #050505; }
+        body { background: var(--bg); color: var(--neon); font-family: 'Courier New', monospace; margin: 0; display: flex; height: 100vh; overflow: hidden; }
         
-        #sidebar { width: 350px; border-right: 2px solid var(--glow); display: flex; flex-direction: column; padding: 20px; background: rgba(0,10,0,0.9); z-index: 10; }
-        #chat-output { flex-grow: 1; overflow-y: auto; margin-bottom: 20px; padding: 10px; border: 1px solid #004411; background: rgba(0,0,0,0.5); }
+        #sidebar { width: 360px; border-right: 2px solid var(--neon); display: flex; flex-direction: column; padding: 20px; background: rgba(0,15,0,0.95); z-index: 10; box-shadow: 10px 0 20px rgba(0,0,0,0.5); }
+        #chat-output { flex-grow: 1; overflow-y: auto; margin-bottom: 15px; padding: 10px; border: 1px solid var(--dim); background: rgba(0,0,0,0.7); scroll-behavior: smooth; }
         
-        .user-msg { color: #fff; margin: 10px 0; font-size: 0.9em; border-bottom: 1px solid #222; }
-        .ai-msg { color: var(--glow); margin-bottom: 20px; padding-left: 10px; border-left: 2px solid var(--glow); text-shadow: 0 0 5px var(--glow); }
+        .user-msg { color: #fff; margin: 10px 0; font-size: 0.85em; opacity: 0.8; }
+        .ai-msg { color: var(--neon); margin-bottom: 20px; padding-left: 10px; border-left: 3px solid var(--neon); text-shadow: 0 0 8px var(--neon); }
         
-        .input-area { display: flex; gap: 5px; }
-        input { background: #000; border: 1px solid var(--glow); color: var(--glow); padding: 12px; outline: none; flex-grow: 1; }
+        .control-panel { display: flex; flex-direction: column; gap: 10px; }
+        .input-group { display: flex; gap: 5px; }
+        input[type="text"] { background: #000; border: 1px solid var(--neon); color: var(--neon); padding: 12px; outline: none; flex-grow: 1; }
         
-        #voice-btn { background: #000; border: 1px solid var(--glow); color: var(--glow); cursor: pointer; padding: 0 15px; }
-        #voice-btn.active { background: red; color: white; animation: pulse 1s infinite; }
+        button { background: #000; border: 1px solid var(--neon); color: var(--neon); cursor: pointer; transition: 0.3s; padding: 10px; }
+        button:hover { background: var(--neon); color: #000; }
+        #mic-btn.active { background: red; color: white; animation: pulse 1s infinite; }
+
+        .file-input { font-size: 10px; margin-top: 10px; color: #888; }
+        #visualizer { flex-grow: 1; background: #000; cursor: crosshair; }
+        .status-tag { font-size: 0.7em; letter-spacing: 1px; margin-bottom: 10px; color: yellow; }
 
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        #visualizer { flex-grow: 1; background: #000; }
-        .meta-data { font-size: 0.7em; color: #555; margin-top: 5px; }
     </style>
 </head>
 <body>
 
 <div id="sidebar">
-    <h2 style="text-align: center; text-shadow: 0 0 10px var(--glow);">VOICE CORE OS</h2>
-    <div id="chat-output"></div>
-    <div id="status" style="color: yellow; font-size: 0.8em; margin-bottom: 5px; height: 15px;"></div>
+    <div class="status-tag" id="sys-status">SINGULARITY: STANDBY</div>
+    <h2 style="margin: 0 0 20px 0; text-align: center;">SENTIENT CORE</h2>
     
-    <div class="input-area">
-        <input type="text" id="userInput" placeholder="បញ្ជាតាមអក្សរ ឬសំឡេង..." autocomplete="off">
-        <button id="voice-btn" title="បញ្ជាដោយសំឡេង">🎤</button>
-    </div>
+    <div id="chat-output"></div>
+    
+    <div class="control-panel">
+        <div class="input-group">
+            <input type="text" id="userInput" placeholder="Query neural pathways..." autocomplete="off">
+            <button id="mic-btn">🎤</button>
+        </div>
+        
+        <div class="file-input">
+            <label>TRAIN VIA CSV:</label><br>
+            <input type="file" id="csvLoader" accept=".csv" style="width: 100%;">
+        </div>
 
-    <div class="meta-data" id="stats">Neural Pathways: 0</div>
-    <button onclick="downloadBrain()" style="margin-top:10px; background:none; border:1px solid #222; color:#444; cursor:pointer; font-size:9px;">EXPORT BRAIN.JSON</button>
+        <div style="display: flex; gap: 5px; margin-top: 10px;">
+            <button onclick="downloadBrain()" style="flex:1; font-size: 10px;">SAVE BRAIN</button>
+            <button onclick="clearMemory()" style="flex:1; font-size: 10px; border-color: red; color: red;">WIPE</button>
+        </div>
+    </div>
+    <div style="font-size: 0.7em; margin-top: 15px; opacity: 0.5;" id="stats">Pathways: 0</div>
 </div>
 
 <svg id="visualizer"></svg>
@@ -49,44 +64,49 @@
     let isLearning = false;
     let lastQuery = "";
 
-    // --- ១. ប្រព័ន្ធសំឡេង (Speech-to-Text & Text-to-Speech) ---
-    const voiceBtn = document.getElementById('voice-btn');
+    // --- 1. SPEECH ENGINE ---
+    const micBtn = document.getElementById('mic-btn');
     const recognition = window.SpeechRecognition || window.webkitSpeechRecognition ? new (window.SpeechRecognition || window.webkitSpeechRecognition)() : null;
     const synth = window.speechSynthesis;
 
     if (recognition) {
-        recognition.lang = 'km-KH'; // កំណត់ភាសាខ្មែរ (បើមាន support) ឬ 'en-US'
-        recognition.continuous = false;
-
-        voiceBtn.onclick = () => {
-            recognition.start();
-            voiceBtn.classList.add('active');
-            document.getElementById('status').innerText = "កំពុងស្តាប់...";
+        recognition.lang = 'km-KH'; // Supports Khmer or switch to 'en-US'
+        micBtn.onclick = () => { recognition.start(); micBtn.classList.add('active'); };
+        recognition.onresult = (e) => {
+            const text = e.results[0][0].transcript;
+            document.getElementById('userInput').value = text;
+            processInput(text);
         };
-
-        recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript;
-            document.getElementById('userInput').value = transcript;
-            processInput(transcript);
-        };
-
-        recognition.onend = () => {
-            voiceBtn.classList.remove('active');
-            document.getElementById('status').innerText = "";
-        };
+        recognition.onend = () => micBtn.classList.remove('active');
     }
 
     function speak(text) {
-        if (synth.speaking) synth.cancel();
+        if (!synth) return;
         const utter = new SpeechSynthesisUtterance(text);
-        utter.rate = 1.0;
-        utter.pitch = 1.0;
-        // ចំណាំ៖ ភាសាខ្មែរអាចអាស្រ័យលើ Browser/OS របស់អ្នក
+        utter.pitch = 1; utter.rate = 1;
         synth.speak(utter);
     }
 
-    // --- ២. ម៉ាស៊ីនវិភាគ (Similarity Logic) ---
-    function calculateSimilarity(s1, s2) {
+    // --- 2. CSV MACHINE LEARNING INGESTION ---
+    document.getElementById('csvLoader').onchange = function(e) {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const rows = event.target.result.split('\n');
+            rows.forEach(row => {
+                const parts = row.split(',');
+                if (parts.length >= 2) {
+                    brain[parts[0].trim().toLowerCase()] = parts[1].trim();
+                }
+            });
+            saveBrain();
+            addLog("AI: Neural database updated via CSV.", "ai-msg");
+        };
+        reader.readAsText(file);
+    };
+
+    // --- 3. CORE INTELLIGENCE (FUZZY LOGIC) ---
+    function getSimilarity(s1, s2) {
         let longer = s1.toLowerCase(), shorter = s2.toLowerCase();
         if (s1.length < s2.length) [longer, shorter] = [shorter, longer];
         if (longer.length === 0) return 1.0;
@@ -112,570 +132,98 @@
         return costs[s2.length];
     }
 
-    // --- ៣. ការរៀន និងឆ្លើយតប ---
-    async function bootSystem() {
-        const saved = localStorage.getItem('huokaingthara_core');
-        if (saved) brain = JSON.parse(saved);
-        else {
-            try {
-                const res = await fetch('brain.json');
-                brain = await res.json();
-            } catch (e) { brain = {"សួស្តី": "ខ្ញុំជា AI ឆ្លាតវៃ"}; }
-        }
+    // --- 4. SYSTEM LOGIC ---
+    function saveBrain() {
+        localStorage.setItem('huokaingthara_v6', JSON.stringify(brain));
         updateUI();
-        initGraph();
+    }
+
+    function addLog(text, className) {
+        const out = document.getElementById('chat-output');
+        out.innerHTML += `<div class="${className}">${text}</div>`;
+        out.scrollTop = out.scrollHeight;
     }
 
     function processInput(q) {
-        const chat = document.getElementById('chat-output');
-        chat.innerHTML += `<div class="user-msg">អ្នក៖ ${q}</div>`;
-
-        if (isLearning) {
-            brain[lastQuery.toLowerCase()] = q;
-            localStorage.setItem('huokaingthara_core', JSON.stringify(brain));
-            chat.innerHTML += `<div class="ai-msg">បានរៀន៖ ${q}</div>`;
-            speak("ការចងចាំត្រូវបានរក្សាទុក");
-            isLearning = false;
-            updateUI();
-            return;
-        }
-
-        let bestMatch = null, maxScore = 0;
-        for (let key in brain) {
-            let score = calculateSimilarity(q, key);
-            if (score > maxScore) { maxScore = score; bestMatch = key; }
-        }
-
-        if (maxScore > 0.4) {
-            const res = brain[bestMatch];
-            chat.innerHTML += `<div class="ai-msg">AI៖ ${res}</div>`;
-            speak(res);
-        } else {
-            chat.innerHTML += `<div class="ai-msg" style="color:yellow;">មិនស្គាល់ពាក្យនេះទេ។ សូមបង្រៀនខ្ញុំ៖</div>`;
-            speak("សូមជួយបង្រៀនខ្ញុំផង");
-            isLearning = true;
-            lastQuery = q;
-        }
-        chat.scrollTop = chat.scrollHeight;
-    }
-
-    document.getElementById('userInput').onkeypress = (e) => {
-        if (e.key === 'Enter') {
-            processInput(e.target.value);
-            e.target.value = "";
-        }
-    };
-
-    function updateUI() {
-        document.getElementById('stats').innerText = `Neural Pathways: ${Object.keys(brain).length}`;
-        updateGraph();
-    }
-
-    function downloadBrain() {
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(new Blob([JSON.stringify(brain, null, 4)], {type:"application/json"}));
-        a.download = "brain.json"; a.click();
-    }
-
-    // --- ៤. D3 Visualizer ---
-    function initGraph() { updateGraph(); }
-    function updateGraph() {
-        const svg = d3.select("#visualizer"), width = window.innerWidth - 350, height = window.innerHeight;
-        svg.selectAll("*").remove();
-        const nodes = [{id:"CORE", group:1}], links = [];
-        Object.keys(brain).slice(-60).forEach(k => {
-            nodes.push({id:k, group:2});
-            links.push({source:"CORE", target:k});
-        });
-        const sim = d3.forceSimulation(nodes).force("link", d3.forceLink(links).id(d=>d.id))
-            .force("charge", d3.forceManyBody().strength(-100)).force("center", d3.forceCenter(width/2, height/2));
-        const l = svg.append("g").selectAll("line").data(links).enter().append("line").attr("stroke", "#002200");
-        const n = svg.append("g").selectAll("circle").data(nodes).enter().append("circle")
-            .attr("r", d=>d.group===1?8:4).attr("fill", d=>d.group===1?"red":"#00ff41");
-        sim.on("tick", () => {
-            l.attr("x1", d=>d.source.x).attr("y1", d=>d.source.y).attr("x2", d=>d.target.x).attr("y2", d=>d.target.y);
-            n.attr("cx", d=>d.x).attr("cy", d=>d.y);
-        });
-    }
-    window.onload = bootSystem;
-</script>
-</body>
-</html>
-        if (synth.speaking) synth.cancel();
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.rate = 1.0;
-        utter.pitch = 1.0;
-        // ចំណាំ៖ ភាសាខ្មែរអាចអាស្រ័យលើ Browser/OS របស់អ្នក
-        synth.speak(utter);
-    }
-
-    // --- ២. ម៉ាស៊ីនវិភាគ (Similarity Logic) ---
-    function calculateSimilarity(s1, s2) {
-        let longer = s1.toLowerCase(), shorter = s2.toLowerCase();
-        if (s1.length < s2.length) [longer, shorter] = [shorter, longer];
-        if (longer.length === 0) return 1.0;
-        return (longer.length - editDistance(longer, shorter)) / parseFloat(longer.length);
-    }
-
-    function editDistance(s1, s2) {
-        let costs = [];
-        for (let i = 0; i <= s1.length; i++) {
-            let lastValue = i;
-            for (let j = 0; j <= s2.length; j++) {
-                if (i === 0) costs[j] = j;
-                else if (j > 0) {
-                    let newValue = costs[j - 1];
-                    if (s1.charAt(i - 1) !== s2.charAt(j - 1))
-                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
-                    costs[j - 1] = lastValue;
-                    lastValue = newValue;
-                }
-            }
-            if (i > 0) costs[s2.length] = lastValue;
-        }
-        return costs[s2.length];
-    }
-
-    // --- ៣. ការរៀន និងឆ្លើយតប ---
-    async function bootSystem() {
-        const saved = localStorage.getItem('huokaingthara_core');
-        if (saved) brain = JSON.parse(saved);
-        else {
-            try {
-                const res = await fetch('brain.json');
-                brain = await res.json();
-            } catch (e) { brain = {"សួស្តី": "ខ្ញុំជា AI ឆ្លាតវៃ"}; }
-        }
-        updateUI();
-        initGraph();
-    }
-
-    function processInput(q) {
-        const chat = document.getElementById('chat-output');
-        chat.innerHTML += `<div class="user-msg">អ្នក៖ ${q}</div>`;
-
-        if (isLearning) {
-            brain[lastQuery.toLowerCase()] = q;
-            localStorage.setItem('huokaingthara_core', JSON.stringify(brain));
-            chat.innerHTML += `<div class="ai-msg">បានរៀន៖ ${q}</div>`;
-            speak("ការចងចាំត្រូវបានរក្សាទុក");
-            isLearning = false;
-            updateUI();
-            return;
-        }
-
-        let bestMatch = null, maxScore = 0;
-        for (let key in brain) {
-            let score = calculateSimilarity(q, key);
-            if (score > maxScore) { maxScore = score; bestMatch = key; }
-        }
-
-        if (maxScore > 0.4) {
-            const res = brain[bestMatch];
-            chat.innerHTML += `<div class="ai-msg">AI៖ ${res}</div>`;
-            speak(res);
-        } else {
-            chat.innerHTML += `<div class="ai-msg" style="color:yellow;">មិនស្គាល់ពាក្យនេះទេ។ សូមបង្រៀនខ្ញុំ៖</div>`;
-            speak("សូមជួយបង្រៀនខ្ញុំផង");
-            isLearning = true;
-            lastQuery = q;
-        }
-        chat.scrollTop = chat.scrollHeight;
-    }
-
-    document.getElementById('userInput').onkeypress = (e) => {
-        if (e.key === 'Enter') {
-            processInput(e.target.value);
-            e.target.value = "";
-        }
-    };
-
-    function updateUI() {
-        document.getElementById('stats').innerText = `Neural Pathways: ${Object.keys(brain).length}`;
-        updateGraph();
-    }
-
-    function downloadBrain() {
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(new Blob([JSON.stringify(brain, null, 4)], {type:"application/json"}));
-        a.download = "brain.json"; a.click();
-    }
-
-    // --- ៤. D3 Visualizer ---
-    function initGraph() { updateGraph(); }
-    function updateGraph() {
-        const svg = d3.select("#visualizer"), width = window.innerWidth - 350, height = window.innerHeight;
-        svg.selectAll("*").remove();
-        const nodes = [{id:"CORE", group:1}], links = [];
-        Object.keys(brain).slice(-60).forEach(k => {
-            nodes.push({id:k, group:2});
-            links.push({source:"CORE", target:k});
-        });
-        const sim = d3.forceSimulation(nodes).force("link", d3.forceLink(links).id(d=>d.id))
-            .force("charge", d3.forceManyBody().strength(-100)).force("center", d3.forceCenter(width/2, height/2));
-        const l = svg.append("g").selectAll("line").data(links).enter().append("line").attr("stroke", "#002200");
-        const n = svg.append("g").selectAll("circle").data(nodes).enter().append("circle")
-            .attr("r", d=>d.group===1?8:4).attr("fill", d=>d.group===1?"red":"#00ff41");
-        sim.on("tick", () => {
-            l.attr("x1", d=>d.source.x).attr("y1", d=>d.source.y).attr("x2", d=>d.target.x).attr("y2", d=>d.target.y);
-            n.attr("cx", d=>d.x).attr("cy", d=>d.y);
-        });
-    }
-    window.onload = bootSystem;
-</script>
-</body>
-</html>
-if (i === 0) costs[j] = j;
-                else if (j > 0) {
-                    let newValue = costs[j - 1];
-                    if (s1.charAt(i - 1) !== s2.charAt(j - 1))
-                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
-                    costs[j - 1] = lastValue;
-                    lastValue = newValue;
-                }
-            }
-            if (i > 0) costs[s2.length] = lastValue;
-        }
-        return costs[s2.length];
-    }
-
-    // --- ដំណើរការបញ្ជា ---
-    const inputField = document.getElementById('userInput');
-    inputField.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const val = inputField.value.trim();
-            if (val) processInput(val);
-            inputField.value = "";
-        }
-    });
-
-    function processInput(q) {
-        const chat = document.getElementById('chat-output');
-        chat.innerHTML += `<div class="user-msg">> ${q}</div>`;
-
+        addLog(`> ${q}`, "user-msg");
+        
         if (isLearning) {
             brain[lastQuery.toLowerCase()] = q;
             saveBrain();
-            chat.innerHTML += `<div class="ai-msg">ការចងចាំថ្មីត្រូវបានរក្សាទុក៖ ${lastQuery}</div>`;
+            addLog(`AI: Pathway established. Learning complete.`, "ai-msg");
+            speak("រៀនរួចរាល់");
             isLearning = false;
-            document.getElementById('status').innerText = "";
+            document.getElementById('sys-status').innerText = "SINGULARITY: STABLE";
             return;
         }
 
-        let bestMatch = null;
-        let maxScore = 0;
-
+        let bestMatch = null, maxScore = 0;
         for (let key in brain) {
-            let score = calculateSimilarity(q, key);
-            if (score > maxScore) {
-                maxScore = score;
-                bestMatch = key;
-            }
+            let score = getSimilarity(q, key);
+            if (score > maxScore) { maxScore = score; bestMatch = key; }
         }
 
-        if (maxScore > 0.4) {
-            const response = brain[bestMatch];
-            chat.innerHTML += `<div class="ai-msg">AI [Confidence: ${(maxScore*100).toFixed(0)}%]:<br>${response}</div>`;
+        if (maxScore > 0.45) {
+            const res = brain[bestMatch];
+            addLog(`AI: ${res}`, "ai-msg");
+            speak(res);
         } else {
-            chat.innerHTML += `<div class="ai-msg" style="color:yellow;">ខ្ញុំមិនទាន់យល់ពី "${q}" ទេ។ សូមបង្រៀនខ្ញុំ (វាយនិយមន័យ)៖</div>`;
+            addLog(`AI: Pattern unknown. Provide definition for "${q}":`, "ai-msg");
+            speak("សូមជួយបង្រៀនខ្ញុំ");
             isLearning = true;
             lastQuery = q;
-            document.getElementById('status').innerText = "កំពុងរៀន...";
+            document.getElementById('sys-status').innerText = "SINGULARITY: EVOLVING...";
         }
-        chat.scrollTop = chat.scrollHeight;
     }
+
+    document.getElementById('userInput').onkeypress = (e) => {
+        if (e.key === 'Enter') { processInput(e.target.value); e.target.value = ""; }
+    };
+
+    function downloadBrain() {
+        const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(brain, null, 4));
+        const link = document.createElement('a');
+        link.setAttribute("href", data); link.setAttribute("download", "brain.json");
+        link.click();
+    }
+
+    function clearMemory() { if(confirm("Wipe all neural pathways?")) { brain = {}; saveBrain(); location.reload(); } }
 
     function updateUI() {
         const count = Object.keys(brain).length;
-        document.getElementById('stats').innerText = `Neural Pathways: ${count}`;
+        document.getElementById('stats').innerText = `Pathways: ${count}`;
+        if(count > 500) document.getElementById('sys-status').innerText = "SINGULARITY: IMMINENT";
         updateGraph();
     }
 
-    function downloadBrain() {
-        const blob = new Blob([JSON.stringify(brain, null, 4)], {type: "application/json"});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = "brain.json"; a.click();
-    }
-
-    // --- ការបង្ហាញបណ្តាញខួរក្បាល (D3 Graph) ---
-    function initGraph() { updateGraph(); }
+    // --- 5. D3 VISUALIZER ---
     function updateGraph() {
-        const svg = d3.select("#visualizer"), width = window.innerWidth - 350, height = window.innerHeight;
+        const svg = d3.select("#visualizer"), width = window.innerWidth - 360, height = window.innerHeight;
         svg.selectAll("*").remove();
-        const nodes = [{id: "CORE", group: 1}], links = [];
-        Object.keys(brain).slice(-50).forEach(k => {
-            nodes.push({id: k, group: 2});
-            links.push({source: "CORE", target: k});
+        const nodes = [{id:"CORE", group:1}], links = [];
+        Object.keys(brain).slice(-80).forEach(k => {
+            nodes.push({id:k, group:2});
+            links.push({source:"CORE", target:k});
         });
-        const sim = d3.forceSimulation(nodes)
-            .force("link", d3.forceLink(links).id(d => d.id))
-            .force("charge", d3.forceManyBody().strength(-150))
-            .force("center", d3.forceCenter(width / 2, height / 2));
-        const l = svg.append("g").selectAll("line").data(links).enter().append("line").attr("stroke", "#004411");
+        const sim = d3.forceSimulation(nodes).force("link", d3.forceLink(links).id(d=>d.id))
+            .force("charge", d3.forceManyBody().strength(-120)).force("center", d3.forceCenter(width/2, height/2));
+        const l = svg.append("g").selectAll("line").data(links).enter().append("line").attr("stroke", "#002200");
         const n = svg.append("g").selectAll("circle").data(nodes).enter().append("circle")
-            .attr("r", d => d.group === 1 ? 10 : 5).attr("fill", d => d.group === 1 ? "red" : "#00ff41");
+            .attr("r", d=>d.group===1?10:4).attr("fill", d=>d.group===1?"#ff0000":"#00ff41");
         sim.on("tick", () => {
-            l.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
-            n.attr("cx", d => d.x).attr("cy", d => d.y);
+            l.attr("x1", d=>d.source.x).attr("y1", d=>d.source.y).attr("x2", d=>d.target.x).attr("y2", d=>d.target.y);
+            n.attr("cx", d=>d.x).attr("cy", d=>d.y);
         });
     }
-    window.onload = bootSystem;
-</script>
-</body>
-</html>
-                const response = await fetch('brain.json');
-                brain = await response.json();
-                saveToLocalStorage();
-            } catch (e) {
-                brain = { "identity": "Huokaingthara Autonomous OS", "status": "Initial boot complete" };
-            }
+
+    window.onload = async () => {
+        const saved = localStorage.getItem('huokaingthara_v6');
+        if (saved) brain = JSON.parse(saved);
+        else {
+            try { const res = await fetch('brain.json'); brain = await res.json(); } catch(e) {}
         }
         updateUI();
-        initGraph();
-    }
-
-    function saveToLocalStorage() {
-        localStorage.setItem('huokaingthara_brain', JSON.stringify(brain));
-    }
-
-    // --- NLP & SEARCH LOGIC ---
-    function findMatch(query) {
-        const keys = Object.keys(brain);
-        // Simple fuzzy match logic
-        const match = keys.find(k => k.toLowerCase().includes(query.toLowerCase()) || query.toLowerCase().includes(k.toLowerCase()));
-        return match ? brain[match] : null;
-    }
-
-    // --- UI INTERACTION ---
-    const input = document.getElementById('userInput');
-    input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const val = input.value.trim();
-            if (!val) return;
-            
-            processQuery(val);
-            input.value = "";
-        }
-    });
-
-    function processQuery(q) {
-        const chat = document.getElementById('chat-output');
-        chat.innerHTML += `<div class="user-msg">> ${q}</div>`;
-
-        if (isLearning) {
-            brain[lastQuery] = q;
-            saveToLocalStorage();
-            chat.innerHTML += `<div class="ai-msg">Neural integration complete. '${lastQuery}' defined.</div>`;
-            isLearning = false;
-            document.getElementById('learning-indicator').style.display = 'none';
-            updateUI();
-            return;
-        }
-
-        const answer = findMatch(q);
-        if (answer) {
-            chat.innerHTML += `<div class="ai-msg">AI: ${answer}</div>`;
-        } else {
-            chat.innerHTML += `<div class="ai-msg" style="color:yellow;">Pattern unknown. Please provide a definition to integrate this concept.</div>`;
-            isLearning = true;
-            lastQuery = q;
-            document.getElementById('learning-indicator').style.display = 'block';
-        }
-        chat.scrollTop = chat.scrollHeight;
-    }
-
-    function updateUI() {
-        document.getElementById('stats').innerText = `Memory: ${Object.keys(brain).length} Patterns | System: Online`;
-        updateGraph();
-    }
-
-    function exportBrain() {
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(brain, null, 4));
-        const downloadAnchorNode = document.createElement('a');
-        downloadAnchorNode.setAttribute("href", dataStr);
-        downloadAnchorNode.setAttribute("download", "brain.json");
-        document.body.appendChild(downloadAnchorNode);
-        downloadAnchorNode.click();
-        downloadAnchorNode.remove();
-    }
-
-    // --- D3.js VISUALIZER ---
-    const svg = d3.select("#visualizer");
-    let simulation;
-
-    function initGraph() {
-        updateGraph();
-    }
-
-    function updateGraph() {
-        const width = window.innerWidth - 350;
-        const height = window.innerHeight;
-        svg.selectAll("*").remove();
-
-        const nodes = [{ id: "CORE", group: 1 }];
-        const links = [];
-        
-        // Take latest 50 entries to avoid lag
-        Object.keys(brain).slice(-50).forEach(key => {
-            nodes.push({ id: key, group: 2 });
-            links.append({ source: "CORE", target: key });
-        });
-
-        simulation = d3.forceSimulation(nodes)
-            .force("link", d3.forceLink(links).id(d => d.id))
-            .force("charge", d3.forceManyBody().strength(-200))
-            .force("center", d3.forceCenter(width / 2, height / 2));
-
-        const link = svg.append("g").selectAll("line").data(links).enter().append("line")
-            .attr("stroke", "#004411");
-
-        const node = svg.append("g").selectAll("circle").data(nodes).enter().append("circle")
-            .attr("r", d => d.group === 1 ? 10 : 5)
-            .attr("fill", d => d.group === 1 ? "red" : "#00ff41");
-
-        simulation.on("tick", () => {
-            link.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
-            node.attr("cx", d => d.x).attr("cy", d => d.y);
-        });
-    }
-
-    window.onload = bootSystem;
+    };
 </script>
-
-</body>
-</html>
-    
-    let brain = {};
-    let isLearning = false;
-    let lastQuery = "";
-
-    // Load Initial Brain Data
-    async function bootSystem() {
-        const localBrain = localStorage.getItem('huokaingthara_brain');
-        if (localBrain) {
-            brain = JSON.parse(localBrain);
-        } else {
-            // Attempt to fetch your initial 250+ entries from a local json file
-            try {
-                const response = await fetch('brain.json');
-                brain = await response.json();
-                saveToLocalStorage();
-            } catch (e) {
-                brain = { "identity": "Huokaingthara Autonomous OS", "status": "Initial boot complete" };
-            }
-        }
-        updateUI();
-        initGraph();
-    }
-
-    function saveToLocalStorage() {
-        localStorage.setItem('huokaingthara_brain', JSON.stringify(brain));
-    }
-
-    // --- NLP & SEARCH LOGIC ---
-    function findMatch(query) {
-        const keys = Object.keys(brain);
-        // Simple fuzzy match logic
-        const match = keys.find(k => k.toLowerCase().includes(query.toLowerCase()) || query.toLowerCase().includes(k.toLowerCase()));
-        return match ? brain[match] : null;
-    }
-
-    // --- UI INTERACTION ---
-    const input = document.getElementById('userInput');
-    input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            const val = input.value.trim();
-            if (!val) return;
-            
-            processQuery(val);
-            input.value = "";
-        }
-    });
-
-    function processQuery(q) {
-        const chat = document.getElementById('chat-output');
-        chat.innerHTML += `<div class="user-msg">> ${q}</div>`;
-
-        if (isLearning) {
-            brain[lastQuery] = q;
-            saveToLocalStorage();
-            chat.innerHTML += `<div class="ai-msg">Neural integration complete. '${lastQuery}' defined.</div>`;
-            isLearning = false;
-            document.getElementById('learning-indicator').style.display = 'none';
-            updateUI();
-            return;
-        }
-
-        const answer = findMatch(q);
-        if (answer) {
-            chat.innerHTML += `<div class="ai-msg">AI: ${answer}</div>`;
-        } else {
-            chat.innerHTML += `<div class="ai-msg" style="color:yellow;">Pattern unknown. Please provide a definition to integrate this concept.</div>`;
-            isLearning = true;
-            lastQuery = q;
-            document.getElementById('learning-indicator').style.display = 'block';
-        }
-        chat.scrollTop = chat.scrollHeight;
-    }
-
-    function updateUI() {
-        document.getElementById('stats').innerText = `Memory: ${Object.keys(brain).length} Patterns | System: Online`;
-        updateGraph();
-    }
-
-    function exportBrain() {
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(brain, null, 4));
-        const downloadAnchorNode = document.createElement('a');
-        downloadAnchorNode.setAttribute("href", dataStr);
-        downloadAnchorNode.setAttribute("download", "brain.json");
-        document.body.appendChild(downloadAnchorNode);
-        downloadAnchorNode.click();
-        downloadAnchorNode.remove();
-    }
-
-    // --- D3.js VISUALIZER ---
-    const svg = d3.select("#visualizer");
-    let simulation;
-
-    function initGraph() {
-        updateGraph();
-    }
-
-    function updateGraph() {
-        const width = window.innerWidth - 350;
-        const height = window.innerHeight;
-        svg.selectAll("*").remove();
-
-        const nodes = [{ id: "CORE", group: 1 }];
-        const links = [];
-        
-        // Take latest 50 entries to avoid lag
-        Object.keys(brain).slice(-50).forEach(key => {
-            nodes.push({ id: key, group: 2 });
-            links.append({ source: "CORE", target: key });
-        });
-
-        simulation = d3.forceSimulation(nodes)
-            .force("link", d3.forceLink(links).id(d => d.id))
-            .force("charge", d3.forceManyBody().strength(-200))
-            .force("center", d3.forceCenter(width / 2, height / 2));
-
-        const link = svg.append("g").selectAll("line").data(links).enter().append("line")
-            .attr("stroke", "#004411");
-
-        const node = svg.append("g").selectAll("circle").data(nodes).enter().append("circle")
-            .attr("r", d => d.group === 1 ? 10 : 5)
-            .attr("fill", d => d.group === 1 ? "red" : "#00ff41");
-
-        simulation.on("tick", () => {
-            link.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
-            node.attr("cx", d => d.x).attr("cy", d => d.y);
-        });
-    }
-
-    window.onload = bootSystem;
-</script>
-
 </body>
     </html>
