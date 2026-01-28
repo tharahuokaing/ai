@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huokaingthara Singularity AI</title>
+    <title>Huokaingthara Voice Singularity AI</title>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <style>
         :root { --glow: #00ff41; --bg: #050505; }
@@ -12,62 +12,83 @@
         #sidebar { width: 350px; border-right: 2px solid var(--glow); display: flex; flex-direction: column; padding: 20px; background: rgba(0,10,0,0.9); z-index: 10; }
         #chat-output { flex-grow: 1; overflow-y: auto; margin-bottom: 20px; padding: 10px; border: 1px solid #004411; background: rgba(0,0,0,0.5); }
         
-        .user-msg { color: #fff; margin: 10px 0; font-size: 0.9em; }
-        .ai-msg { color: var(--glow); margin-bottom: 20px; padding-left: 10px; border-left: 2px solid var(--glow); animation: flash 0.5s ease; }
+        .user-msg { color: #fff; margin: 10px 0; font-size: 0.9em; border-bottom: 1px solid #222; }
+        .ai-msg { color: var(--glow); margin-bottom: 20px; padding-left: 10px; border-left: 2px solid var(--glow); text-shadow: 0 0 5px var(--glow); }
         
-        input { background: #000; border: 1px solid var(--glow); color: var(--glow); padding: 12px; outline: none; width: calc(100% - 26px); }
-        .meta-data { font-size: 0.7em; color: #888; margin-top: 5px; }
+        .input-area { display: flex; gap: 5px; }
+        input { background: #000; border: 1px solid var(--glow); color: var(--glow); padding: 12px; outline: none; flex-grow: 1; }
+        
+        #voice-btn { background: #000; border: 1px solid var(--glow); color: var(--glow); cursor: pointer; padding: 0 15px; }
+        #voice-btn.active { background: red; color: white; animation: pulse 1s infinite; }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         #visualizer { flex-grow: 1; background: #000; }
-        
-        @keyframes flash { from { opacity: 0; } to { opacity: 1; } }
+        .meta-data { font-size: 0.7em; color: #555; margin-top: 5px; }
     </style>
 </head>
 <body>
 
 <div id="sidebar">
-    <h2 style="text-align: center; letter-spacing: 2px;">SINGULARITY OS</h2>
+    <h2 style="text-align: center; text-shadow: 0 0 10px var(--glow);">VOICE CORE OS</h2>
     <div id="chat-output"></div>
-    <div id="status" style="color: yellow; font-size: 0.8em; margin-bottom: 5px;"></div>
-    <input type="text" id="userInput" placeholder="បញ្ចូលបញ្ជា..." autocomplete="off">
+    <div id="status" style="color: yellow; font-size: 0.8em; margin-bottom: 5px; height: 15px;"></div>
+    
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="បញ្ជាតាមអក្សរ ឬសំឡេង..." autocomplete="off">
+        <button id="voice-btn" title="បញ្ជាដោយសំឡេង">🎤</button>
+    </div>
+
     <div class="meta-data" id="stats">Neural Pathways: 0</div>
-    <button onclick="downloadBrain()" style="margin-top:10px; background:none; border:1px solid #333; color:#555; cursor:pointer; font-size:9px;">EXPORT BRAIN.JSON</button>
+    <button onclick="downloadBrain()" style="margin-top:10px; background:none; border:1px solid #222; color:#444; cursor:pointer; font-size:9px;">EXPORT BRAIN.JSON</button>
 </div>
 
 <svg id="visualizer"></svg>
 
 <script>
-    // --- ផ្នែកគ្រប់គ្រងខួរក្បាល (Brain Management) ---
     let brain = {};
     let isLearning = false;
     let lastQuery = "";
 
-    // បើកប្រព័ន្ធ និងទាញយកទិន្នន័យ (Offline First)
-    async function bootSystem() {
-        const savedBrain = localStorage.getItem('huokaingthara_core');
-        if (savedBrain) {
-            brain = JSON.parse(savedBrain);
-        } else {
-            try {
-                const response = await fetch('brain.json');
-                brain = await response.json();
-                saveBrain();
-            } catch (e) {
-                brain = { "សួស្តី": "ខ្ញុំគឺ Huokaingthara AI តើអ្នកចង់រៀនពីអ្វី?" };
-            }
-        }
-        updateUI();
-        initGraph();
+    // --- ១. ប្រព័ន្ធសំឡេង (Speech-to-Text & Text-to-Speech) ---
+    const voiceBtn = document.getElementById('voice-btn');
+    const recognition = window.SpeechRecognition || window.webkitSpeechRecognition ? new (window.SpeechRecognition || window.webkitSpeechRecognition)() : null;
+    const synth = window.speechSynthesis;
+
+    if (recognition) {
+        recognition.lang = 'km-KH'; // កំណត់ភាសាខ្មែរ (បើមាន support) ឬ 'en-US'
+        recognition.continuous = false;
+
+        voiceBtn.onclick = () => {
+            recognition.start();
+            voiceBtn.classList.add('active');
+            document.getElementById('status').innerText = "កំពុងស្តាប់...";
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            document.getElementById('userInput').value = transcript;
+            processInput(transcript);
+        };
+
+        recognition.onend = () => {
+            voiceBtn.classList.remove('active');
+            document.getElementById('status').innerText = "";
+        };
     }
 
-    function saveBrain() {
-        localStorage.setItem('huokaingthara_core', JSON.stringify(brain));
-        updateUI();
+    function speak(text) {
+        if (synth.speaking) synth.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.rate = 1.0;
+        utter.pitch = 1.0;
+        // ចំណាំ៖ ភាសាខ្មែរអាចអាស្រ័យលើ Browser/OS របស់អ្នក
+        synth.speak(utter);
     }
 
-    // --- ម៉ាស៊ីនវិភាគឆ្លាតវៃ (Singularity Engine) ---
+    // --- ២. ម៉ាស៊ីនវិភាគ (Similarity Logic) ---
     function calculateSimilarity(s1, s2) {
         let longer = s1.toLowerCase(), shorter = s2.toLowerCase();
-        if (s1.length < s2.length) { [longer, shorter] = [shorter, longer]; }
+        if (s1.length < s2.length) [longer, shorter] = [shorter, longer];
         if (longer.length === 0) return 1.0;
         return (longer.length - editDistance(longer, shorter)) / parseFloat(longer.length);
     }
@@ -78,6 +99,109 @@
             let lastValue = i;
             for (let j = 0; j <= s2.length; j++) {
                 if (i === 0) costs[j] = j;
+                else if (j > 0) {
+                    let newValue = costs[j - 1];
+                    if (s1.charAt(i - 1) !== s2.charAt(j - 1))
+                        newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                    costs[j - 1] = lastValue;
+                    lastValue = newValue;
+                }
+            }
+            if (i > 0) costs[s2.length] = lastValue;
+        }
+        return costs[s2.length];
+    }
+
+    // --- ៣. ការរៀន និងឆ្លើយតប ---
+    async function bootSystem() {
+        const saved = localStorage.getItem('huokaingthara_core');
+        if (saved) brain = JSON.parse(saved);
+        else {
+            try {
+                const res = await fetch('brain.json');
+                brain = await res.json();
+            } catch (e) { brain = {"សួស្តី": "ខ្ញុំជា AI ឆ្លាតវៃ"}; }
+        }
+        updateUI();
+        initGraph();
+    }
+
+    function processInput(q) {
+        const chat = document.getElementById('chat-output');
+        chat.innerHTML += `<div class="user-msg">អ្នក៖ ${q}</div>`;
+
+        if (isLearning) {
+            brain[lastQuery.toLowerCase()] = q;
+            localStorage.setItem('huokaingthara_core', JSON.stringify(brain));
+            chat.innerHTML += `<div class="ai-msg">បានរៀន៖ ${q}</div>`;
+            speak("ការចងចាំត្រូវបានរក្សាទុក");
+            isLearning = false;
+            updateUI();
+            return;
+        }
+
+        let bestMatch = null, maxScore = 0;
+        for (let key in brain) {
+            let score = calculateSimilarity(q, key);
+            if (score > maxScore) { maxScore = score; bestMatch = key; }
+        }
+
+        if (maxScore > 0.4) {
+            const res = brain[bestMatch];
+            chat.innerHTML += `<div class="ai-msg">AI៖ ${res}</div>`;
+            speak(res);
+        } else {
+            chat.innerHTML += `<div class="ai-msg" style="color:yellow;">មិនស្គាល់ពាក្យនេះទេ។ សូមបង្រៀនខ្ញុំ៖</div>`;
+            speak("សូមជួយបង្រៀនខ្ញុំផង");
+            isLearning = true;
+            lastQuery = q;
+        }
+        chat.scrollTop = chat.scrollHeight;
+    }
+
+    document.getElementById('userInput').onkeypress = (e) => {
+        if (e.key === 'Enter') {
+            processInput(e.target.value);
+            e.target.value = "";
+        }
+    };
+
+    function updateUI() {
+        document.getElementById('stats').innerText = `Neural Pathways: ${Object.keys(brain).length}`;
+        updateGraph();
+    }
+
+    function downloadBrain() {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([JSON.stringify(brain, null, 4)], {type:"application/json"}));
+        a.download = "brain.json"; a.click();
+    }
+
+    // --- ៤. D3 Visualizer ---
+    function initGraph() { updateGraph(); }
+    function updateGraph() {
+        const svg = d3.select("#visualizer"), width = window.innerWidth - 350, height = window.innerHeight;
+        svg.selectAll("*").remove();
+        const nodes = [{id:"CORE", group:1}], links = [];
+        Object.keys(brain).slice(-60).forEach(k => {
+            nodes.push({id:k, group:2});
+            links.push({source:"CORE", target:k});
+        });
+        const sim = d3.forceSimulation(nodes).force("link", d3.forceLink(links).id(d=>d.id))
+            .force("charge", d3.forceManyBody().strength(-100)).force("center", d3.forceCenter(width/2, height/2));
+        const l = svg.append("g").selectAll("line").data(links).enter().append("line").attr("stroke", "#002200");
+        const n = svg.append("g").selectAll("circle").data(nodes).enter().append("circle")
+            .attr("r", d=>d.group===1?8:4).attr("fill", d=>d.group===1?"red":"#00ff41");
+        sim.on("tick", () => {
+            l.attr("x1", d=>d.source.x).attr("y1", d=>d.source.y).attr("x2", d=>d.target.x).attr("y2", d=>d.target.y);
+            n.attr("cx", d=>d.x).attr("cy", d=>d.y);
+        });
+    }
+    window.onload = bootSystem;
+</script>
+</body>
+</html>
+if (i === 0) costs[j] = j;
                 else if (j > 0) {
                     let newValue = costs[j - 1];
                     if (s1.charAt(i - 1) !== s2.charAt(j - 1))
@@ -431,4 +555,3 @@
 
 </body>
     </html>
-    
