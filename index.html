@@ -2,133 +2,192 @@
 <html lang="km">
 <head>
     <meta charset="UTF-8">
-    <title>Sentient OS v6.0 - Ghost Protocol</title>
+    <title>Sentient Core v7.0 - Ghost Voice Edition</title>
     <meta name="robots" content="noindex, nofollow, noarchive, nocache">
-    <meta name="googlebot" content="noindex, nofollow">
     
     <style>
-        :root { --blue: #00f2ff; --green: #00ff41; --bg: #01080b; }
-        body { background: var(--bg); color: var(--blue); font-family: 'Courier New', monospace; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        :root {
+            --holo-cyan: #00f2ff;
+            --holo-glow: rgba(0, 242, 255, 0.4);
+            --bg-dark: #010a0f;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 3px;
+            color: var(--holo-cyan);
+            font-family: 'Segoe UI', 'Courier New', monospace;
+            margin: 0; display: flex; align-items: center; justify-content: center;
+            height: 100vh; overflow: hidden;
+        }
+
+        /* Hologram Projector Frame */
+        #hologram-frame {
+            width: 90vw; max-width: 1100px; height: 85vh;
+            background: rgba(0, 40, 60, 0.15);
+            border: 1px solid var(--holo-cyan);
+            position: relative;
+            display: flex; flex-direction: column;
+            box-shadow: 0 0 30px var(--holo-glow), inset 0 0 20px var(--holo-glow);
+            backdrop-filter: blur(10px);
+            animation: holo-float 6s ease-in-out infinite;
+            clip-path: polygon(0 5%, 5% 0, 95% 0, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0 95%);
+        }
+
+        #side { padding: 40px; display: flex; flex-direction: column; height: 100%; box-sizing: border-box; }
         
-        /* Sidebar Layout */
-        #side { width: 320px; border-right: 1px solid var(--blue); display: flex; flex-direction: column; padding: 20px; background: rgba(0,0,0,0.8); z-index: 10; }
+        #out {
+            flex-grow: 1; overflow-y: auto; padding-right: 15px;
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            margin-bottom: 25px;
+        }
+
+        .ai { color: #00ff41; text-shadow: 0 0 10px #00ff41; margin-bottom: 20px; border-left: 3px solid #00ff41; padding-left: 15px; }
+        .user { color: #fff; opacity: 0.5; margin-bottom: 15px; font-size: 0.9em; text-align: right; }
+
+        .controls { display: flex; gap: 15px; border-top: 1px solid var(--holo-glow); padding-top: 25px; }
         
-        /* Chat Output Filter Area */
-        #out { flex-grow: 1; overflow-y: auto; padding: 10px; border: 1px solid rgba(0, 242, 255, 0.2); margin-bottom: 15px; scroll-behavior: smooth; }
-        .ai { color: var(--green); text-shadow: 0 0 5px var(--green); margin-bottom: 12px; border-left: 2px solid var(--green); padding-left: 8px; }
-        .user { color: #fff; opacity: 0.5; margin-bottom: 8px; font-size: 0.85em; }
-        
-        /* Input Stealth Style */
-        input, button { background: rgba(0,242,255,0.05); border: 1px solid var(--blue); color: var(--blue); padding: 12px; outline: none; font-family: inherit; }
-        button { cursor: pointer; transition: 0.2s; font-weight: bold; }
-        button:hover { background: var(--blue); color: #000; box-shadow: 0 0 15px var(--blue); }
-        
-        /* Matrix Boot Overlay */
-        #boot { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 100; padding: 30px; color: var(--green); font-size: 1.2em; line-height: 1.6; }
+        input {
+            flex-grow: 1; background: rgba(0, 242, 255, 0.05);
+            border: 1px solid var(--holo-cyan); color: var(--holo-cyan);
+            padding: 15px; outline: none; font-size: 1em;
+        }
+
+        button {
+            background: transparent; border: 1px solid var(--holo-cyan);
+            color: var(--holo-cyan); padding: 10px 20px; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;
+        }
+        button:hover { background: var(--holo-cyan); color: #000; box-shadow: 0 0 20px var(--holo-cyan); }
+        button.active { background: #ff4444; border-color: #ff4444; color: white; }
+
+        @keyframes holo-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        #boot {
+            position: fixed; inset: 0; background: #000; z-index: 1000;
+            display: flex; justify-content: center; align-items: center;
+            color: var(--holo-cyan); font-size: 1.2em; letter-spacing: 5px;
+        }
     </style>
 </head>
 <body>
 
-<div id="boot"></div>
+<div id="boot">SYNCING GHOST PROTOCOL & VOICE SYSTEMS...</div>
 
-<div id="side">
-    <h2 style="text-align:center; letter-spacing:3px; margin-top:0;">GHOST CORE</h2>
-    <div style="font-size: 0.7em; color: yellow; margin-bottom: 10px;">PROTOCOL: STEALTH ACTIVE</div>
-    
-    <div id="out"></div>
-    
-    <input type="text" id="in" placeholder="Execute command..." autocomplete="off">
-    
-    <div style="margin-top:15px; display:flex; gap:8px;">
-        <input type="file" id="csv" accept=".csv" style="display:none">
-        <button onclick="document.getElementById('csv').click()" style="flex:2">IMPORT DATA</button>
-        <button onclick="wipe()" style="color:#ff4444; flex:1">WIPE</button>
+<div id="hologram-frame">
+    <div id="side">
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin: 0; letter-spacing: 5px;">GHOST CORE v7.0</h2>
+            <div style="font-size: 0.8em; color: #00ff41;">STEALTH & VOICE: ONLINE</div>
+        </header>
+
+        <div id="out"></div>
+
+        <div class="controls">
+            <button id="mic-btn" title="Voice Control">🎤</button>
+            <input type="text" id="in" placeholder="Type or speak command..." autocomplete="off">
+            <button onclick="document.getElementById('csv').click()">Train</button>
+            <input type="file" id="csv" accept=".csv" style="display:none">
+            <button onclick="wipe()" style="color: #ff4444; border-color: #ff4444;">Wipe</button>
+        </div>
     </div>
 </div>
 
 <script>
-    // Machine Learning Memory (Offline)
     let brain = JSON.parse(localStorage.getItem('ghost_brain') || '{}');
     let learningMode = null;
     const output = document.getElementById('out');
     const input = document.getElementById('in');
+    const micBtn = document.getElementById('mic-btn');
 
-    // 1. GHOST BOOT SEQUENCE
-    const logs = [
-        "EXECUTING GHOST PROTOCOL...",
-        "ENCRYPTING LOCAL_HOST...",
-        "DELETING EXTERNAL TRACES...",
-        "OFFLINE MACHINE LEARNING: READY.",
-        "SYSTEM IS NOW INVISIBILE."
-    ];
-    let i = 0;
-    const bootInterval = setInterval(() => {
-        if(i < logs.length) {
-            document.getElementById('boot').innerHTML += `> ${logs[i++]}<br>`;
-        } else {
-            clearInterval(bootInterval);
-            setTimeout(() => document.getElementById('boot').style.display='none', 800);
-        }
-    }, 250);
+    // --- ១. VOICE FEEDBACK (និយាយ) ---
+    function speak(text) {
+        const synth = window.speechSynthesis;
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'km-KH'; // ព្យាយាមប្រើសំឡេងខ្មែរ
+        synth.speak(utter);
+    }
 
-    // 2. RESPONSE FILTER & LOGIC
+    // --- ២. VOICE RECOGNITION (ស្តាប់) ---
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (Recognition) {
+        const rec = new Recognition();
+        rec.lang = 'km-KH';
+        rec.continuous = false;
+
+        micBtn.onclick = () => {
+            rec.start();
+            micBtn.classList.add('active');
+        };
+
+        rec.onresult = (e) => {
+            const transcript = e.results[0][0].transcript;
+            input.value = transcript;
+            process(transcript);
+            micBtn.classList.remove('active');
+        };
+
+        rec.onerror = () => micBtn.classList.remove('active');
+        rec.onend = () => micBtn.classList.remove('active');
+    }
+
+    // Boot
+    setTimeout(() => {
+        document.getElementById('boot').style.display = 'none';
+        logMsg("AI: Ghost Protocol activated. I am listening.", "ai");
+        speak("Ghost Protocol activated. I am listening.");
+    }, 2000);
+
     function logMsg(msg, type) {
         output.innerHTML += `<div class="${type}">${msg}</div>`;
         output.scrollTop = output.scrollHeight;
     }
 
+    // --- ៣. GHOST MACHINE LEARNING LOGIC ---
     function process(q) {
         q = q.trim().toLowerCase();
         if(!q) return;
-
-        // Ghost Security: Clear Console every interaction
         console.clear();
         logMsg("> " + q, "user");
 
-        // Learning Mode Logic
         if(learningMode) {
             brain[learningMode] = q;
             localStorage.setItem('ghost_brain', JSON.stringify(brain));
-            logMsg("GHOST_CORE: Neural pattern integrated.", "ai");
+            logMsg("AI: Neural pattern updated.", "ai");
+            speak("Pattern saved.");
             learningMode = null;
             return;
         }
 
-        // Search & Filter Response
         if(brain[q]) {
             logMsg("AI: " + brain[q], "ai");
+            speak(brain[q]);
         } else {
-            // Fallback: If no data, trigger Machine Learning
-            logMsg(`AI: Pattern "${q}" not found in local memory. Define it:`, "ai");
+            logMsg(`AI: Unknown pattern "${q}". Define it:`, "ai");
+            speak("Unknown pattern. Define it.");
             learningMode = q;
         }
     }
 
-    input.onkeypress = (e) => {
-        if(e.key === 'Enter') { process(input.value); input.value = ''; }
-    };
+    input.onkeypress = (e) => { if(e.key === 'Enter') { process(input.value); input.value = ''; } };
 
-    // 3. OFFLINE CSV TRAINING
+    // CSV Loader
     document.getElementById('csv').onchange = (e) => {
         const reader = new FileReader();
         reader.onload = (ev) => {
-            const rows = ev.target.result.split('\n');
-            rows.forEach(row => {
+            ev.target.result.split('\n').forEach(row => {
                 const parts = row.split(',');
                 if(parts.length >= 2) brain[parts[0].trim().toLowerCase()] = parts[1].trim();
             });
             localStorage.setItem('ghost_brain', JSON.stringify(brain));
-            logMsg("SYSTEM: Batch data integrated into core.", "ai");
+            logMsg("AI: Core expansion complete.", "ai");
+            speak("Core expansion complete.");
         };
         reader.readAsText(e.target.files[0]);
     };
 
-    function wipe() {
-        if(confirm("Confirm core wipe? All local memory will be deleted.")) {
-            localStorage.clear();
-            location.reload();
-        }
-    }
+    function wipe() { if(confirm("Wipe memory?")) { localStorage.clear(); location.reload(); } }
 </script>
 </body>
 </html>
