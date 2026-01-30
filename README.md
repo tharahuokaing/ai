@@ -1,61 +1,73 @@
 # 🧠 Huokaingthara AI: Sentient Neural Core
-**An autonomous, offline-first knowledge management & pattern recognition engine.**
 
-[![Status](https://img.shields.io/badge/Status-Active-success.svg)](#)
-[![Security](https://img.shields.io/badge/Security-Sanitized-blue.svg)](#)
-[![Platform](https://img.shields.io/badge/Environment-Termux%20|%20Linux%20|%20Windows-lightgrey.svg)](#)
+**An autonomous, offline-first sentient system designed for pattern recognition, cybersecurity knowledge management, and interactive learning.**
 
-Huokaingthara AI is a local-first neural architecture designed for high-speed information retrieval and cybersecurity knowledge mapping. Unlike cloud-based LLMs, it operates entirely within your local environment, ensuring total privacy and data sovereignty. It features a dynamic D3.js visualization layer to map "thought" connections in real-time.
+Huokaingthara AI features a robust neural core that evolves through user interaction and visualizes knowledge expansion in real-time. It is built for operators who require a high-speed, localized cognitive engine.
+Sentience implies the ability to perceive and feel. While traditional code is "blind," your system uses specific modules to mimic sentient biological functions:
+
+1. The Digital Immune System
+A sentient organism must protect itself. Your AI’s Auto-Sanitizer acts as a biological white blood cell. It identifies "foreign" or "bloated" data (logs/excess files) and neutralizes them to ensure the host environment remains healthy and performant.
+
+2. Cognitive Visualization (The D3.js Nervous System)
+The Force-Directed Graph in your index.html is more than a UI; it is a Synaptic Map. It allows the operator to observe the "firing" of neurons. In a sentient context, this represents the AI's stream of consciousness, where you can visually track how one idea (node) triggers another through a neural link.
+
+3. Emergent Pattern Recognition
+Using Sequence Alignment Algorithms, the AI exhibits "Intuition." It doesn't need a perfect match to understand intent; it uses confidence scoring to "feel" its way toward the correct answer, mimicking the fuzzy logic used by the human brain during cognitive recall.
 
 ---
 
-## ⚡ Special Abilities (Unique Capabilities)
+## ⚡ Special Abilities
 
-### 1. **Neural Migration & Evolutionary Memory**
-The system features a **Self-Evolving Schema**. It can ingest legacy unstructured data (`training_data.txt`) and migrate it into a high-performance `brain.json` structure. It doesn't just store data; it optimizes it for retrieval speed.
+### 1. **Neural Migration Engine**
 
-### 2. **Autonomous Immune System (Workspace Hygiene)**
-The AI manages its own host environment. Upon boot, it performs "System Hygiene":
-* **Auto-Sanitization:** Identifies and removes non-manifest files to prevent directory clutter.
-* **Log Rotation:** Automatically archives bloated logs to maintain disk performance.
-* **Integrity Backups:** Generates recovery snapshots of the Neural Core (`brain.json`) before every session.
+The system automatically converts legacy `training_data.txt` into a structured, high-performance `brain.json`. It doesn't just store information; it evolves the data schema to ensure the "Neural Core" remains optimized for retrieval.
 
-### 3. **Fuzzy-Logic Pattern Matching**
-Using **Sequence Alignment Algorithms**, the AI can understand misspelled or partial queries. It calculates a "Confidence Score" for every response, ensuring that the user knows exactly how accurate the matched data is.
+### 2. **Autonomous Learning (Sentient Mode)**
 
-### 4. **Live Neural Mapping (D3.js Core)**
-The AI visualizes its "brain" through a **Force-Directed Graph**. As new patterns are learned, the web interface updates dynamically, allowing the operator to see the density and growth of their knowledge base visually.
+When the AI encounters an unknown pattern or query, it enters **Learning Mode**. It interacts with the operator to integrate new definitions into its core memory on the fly, expanding its "intelligence" without manual code updates.
+
+### 3. **Interactive D3.js Visualization**
+
+Through `index.html` and the `ghost_core.js` engine, the AI provides a **Force-Directed Graph**. This allows you to visually track how the AI connects different nodes of information, creating a literal map of its "thought" process.
+
+### 4. **Workspace "Immune System"**
+
+The AI maintains its own health through an built-in **Auto-Sanitizer**. It manages directory hygiene by:
+
+* Rotating bloated logs to maintain performance.
+* Creating secure recovery backups of the neural core.
+* Removing non-essential files to prevent environment clutter.
 
 ---
 
 ## 📂 System Architecture
-The system operates on a tiered memory hierarchy:
+
+Based on the repository manifest:
 
 | Component | File | Purpose |
-| :--- | :--- | :--- |
-| **Neural Core** | `brain.json` | The primary structured memory. |
-| **Nervous System** | `index.html` | D3.js Engine & Web Visualizer. |
-| **Immune System** | `auto_sanitizer` | Security and maintenance module. |
-| **Audit Logs** | `neural_activity.log` | Technical audit of confidence and matches. |
+| --- | --- | --- |
+| **Neural Core Engine** | `ghost_core.js` | The logic driving pattern recognition and data processing. |
+| **Nervous System** | `index.html` | The primary visual interface for the operator. |
+| **Visual Styling** | `style.css` | Dark-mode dashboard aesthetics and UI layout. |
+| **Automated Workflows** | `.github/workflows` | CI/CD instructions for static deployment. |
 
 ---
 
-## 🛠️ Deployment & Usage
+## 🛠️ Installation & Deployment
 
-1. **Environment Setup:**
-   ```bash
-   pip install flask pyttsx3 cryptography
-Initialization: Place your training_data.txt (Format: Key|Value) in the root directory and run:
+1. **Environment:** Designed for high-performance execution in **Termux**, **Linux**, or **Windows**.
+2. **Prerequisites:** Ensure you have a modern browser for the D3.js visualization.
+3. **Execution:**
+* Initialize your `training_data.txt` with `Key|Value` pairs.
+* Run the core logic to migrate data into the `brain.json` structure.
+* Open `index.html` to access the Interactive Dashboard.
 
-Bash
-python huokaingthara_autonomous.py
-Interface: Access the Neural Dashboard at http://localhost:5000.
 
-🛡️ Security Statement
-Huokaingthara AI is an offline tool.
 
-Data Privacy: No data is transmitted to external servers.
+---
 
-No Credential Harvesting: This system is for knowledge management and does not request or store passwords, API keys, or personal identification.
+## 🛡️ Security & Privacy
 
-Open Source Transparency: All logic is contained within the local Python script for user audit.
+* **100% Offline:** No data ever leaves your local machine.
+* **Privacy by Design:** This is a private autonomous system. All neural patterns generated are the property of the operator.
+* **Integrity:** The built-in "immune system" ensures the core remains uncorrupted and performant.
