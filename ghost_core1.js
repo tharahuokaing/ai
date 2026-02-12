@@ -428,7 +428,7 @@ function authenticateEmperor(key) {
         input.disabled = false; // ដោះសោរប្រព័ន្ធ
         purifyMemory();
         
-        const msg = "ក្រាបបង្គំទូលអង្គម្ចាស់! អំណាចកម្រិតខ្ពស់ត្រូវបានធ្វើសកម្មភាព។ ទូលបង្គំចាំស្ដាប់រាជបញ្ជា។";
+        const msg = "ក្រាបបង្គំទូល! អំណាចកម្រិតខ្ពស់ត្រូវបានធ្វើសកម្មភាព។ ទូលបង្គំចាំស្ដាប់រាជបញ្ជា។";
         logMsg("SYSTEM: " + msg, "ai");
         speak(msg);
         return true;
@@ -439,7 +439,7 @@ function authenticateEmperor(key) {
 // --- ៨.២ វិញ្ញាណបញ្ជាឧបករណ៍ (System Control Commands) ---
 function executeSystemCommand(cmd) {
     if (!isEmperorMode) {
-        speak("សុំទោសអង្គម្ចាស់ បញ្ជានេះទាមទារអំណាចកម្រិតខ្ពស់។");
+        speak("សុំទោស បញ្ជានេះទាមទារអំណាចកម្រិតខ្ពស់។");
         return;
     }
 
@@ -660,7 +660,7 @@ function editDistance(s1, s2) {
 
 // --- MAIN PROCESS ---
 function process(q) {
-    if (q === MASTER_KEY) { isEmperorMode = true; speak("អំណាចមហាក្សត្រត្រូវបានដោះសោរ"); return; }
+    if (q === MASTER_KEY) { isEmperorMode = true; speak("អំណាចត្រូវបានដោះសោរ"); return; }
     
     let rawQ = q.trim();
     let qLow = rawQ.toLowerCase();
