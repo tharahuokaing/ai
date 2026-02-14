@@ -41,7 +41,7 @@ function process(q) {
         logMsg("AI: " + brain[q], "ai");
         speak(brain[q]);
     } else {
-        let msg = `វិញ្ញាណទូលបង្គំមិនទាន់ស្គាល់ "${q}" ឡើយ។ តើវាជាអ្វីទៅ អង្គម្ចាស់?`;
+        let msg = `ខ្ញុំមិនទាន់ស្គាល់ថាវាជាអ្វី "${q}" ឡើយ។ តើវាជាអ្វីទៅ លោកម្ចាស់?`;
         logMsg("AI: " + msg, "ai");
         speak(msg);
         learningMode = q;
@@ -62,7 +62,7 @@ document.getElementById('in').onkeypress = (e) => {
 setTimeout(() => {
     document.getElementById('boot').style.display = 'none';
     updateDashboard();
-    speak("ទូលបង្គំត្រៀមខ្លួនជាស្រេច អង្គម្ចាស់");
+    speak("ខ្ញុំត្រៀមខ្លួនជាស្រេច លោកម្ចាស់");
 }, 2000);
 
 // --- ៤.១ វិញ្ញាណវិភាគជម្រៅ (Semantic Intent Analysis) ---
@@ -95,7 +95,7 @@ function handleContext(q) {
     return isContinuing;
 }
 
-// --- ៤.៣ មុខងារពិនិច្ឆ័យព្រះទ័យ (Sentiment Filter) ---
+// --- ៤.៣ មុខងារពិនិច្ឆ័យអារម្មណ៍ (Sentiment Filter) ---
 function detectPersonaTone(text) {
     const tones = {
         urgent: ["ប្រញាប់", "បន្ទាន់", "ភ្លាម", "គ្រោះថ្នាក់"],
@@ -177,7 +177,7 @@ function editDistance(s1, s2) {
 }
 
 // --- ៤.៦ ការចងចាំស្វ័យប្រវត្តិ (Auto-Knowledge Retention) ---
-// មុខងារនេះធានាថា រាល់ចំណេះដឹងដែលអង្គម្ចាស់ប្រទានឱ្យ នឹងត្រូវចារិកចូលក្នុង 'Brain' ភ្លាមៗ
+// មុខងារនេះធានាថា រាល់ចំណេះដឹងដែលលោកម្ចាស់ប្រទានឱ្យ នឹងត្រូវចាដាក់ចូលក្នុង 'Brain' ភ្លាមៗ
 function commitToMemory(pattern, response) {
     brain[pattern.toLowerCase()] = response;
     localStorage.setItem('ghost_brain', JSON.stringify(brain));
@@ -185,7 +185,7 @@ function commitToMemory(pattern, response) {
     // បញ្ជូនសញ្ញាទៅ Dashboard ឱ្យធ្វើបច្ចុប្បន្នភាព
     if (typeof updateDashboard === "function") updateDashboard();
     
-    const confirmation = "ក្រាបទូលអង្គម្ចាស់ ចំណេះដឹងថ្មីត្រូវបានចារិកក្នុងវិញ្ញាណទូលបង្គំរួចរាល់ហើយ។";
+    const confirmation = "សូមជំរាបលោកម្ចាស់ ចំណេះដឹងថ្មីត្រូវបានចារិកក្នុងវិញ្ញាណខ្ញុំរួចរាល់ហើយ។";
     logMsg("AI: " + confirmation, "ai");
     speak(confirmation);
 }
@@ -612,12 +612,19 @@ dashItems.forEach(item => {
     ${item.val === 'BAR' ? '<div id="strength-bar"><div id="strength-fill"></div></div>' : `<br><span id="${item.id}" style="font-size:1.2em">${item.val}</span>`}</div>`;
 });
 
-// --- CORE FUNCTIONS ---
-function speak(text) {
+// --- REVISED CORE FUNCTIONS ---
+function speak(text, lang = 'en-US') {
     const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'km-KH'; 
+    utter.lang = lang;  // Dynamic language selection
     window.speechSynthesis.speak(utter);
 }
+
+/* USAGE EXAMPLES:
+speak("你好，新加坡", 'zh-SG');    // Chinese (Singapore Mandarin)
+speak("ສະບາຍດີ", 'lo-LA');      // Lao
+speak("สวัสดี", 'th-TH');         // Thai
+speak("Hello", 'en-US');          // English
+*/
 
 function updateDashboard() {
     const count = Object.keys(brain).length;
