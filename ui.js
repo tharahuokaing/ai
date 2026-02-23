@@ -1,71 +1,66 @@
-// UI Functions
-function updateDashboard() {
-    // Update memory count
-    const memCount = Object.keys(brain).length;
-    document.getElementById('mem-count').innerHTML = memCount;
-    
-    // Update neural strength bar
-    const strength = Math.min(memCount * 2, 100);
-    document.getElementById('strength-fill').style.width = strength + "%";
-    
-    // Update threat status
-    const threatStatus = isEmperorMode ? 'EMPEROR_MODE' : 'SECURED';
-    document.getElementById('threat-status').innerHTML = threatStatus;
-    
-    // Update singularity progress
-    const phase = singularityRoadmap.getPhase();
-    document.getElementById('phase-name').innerHTML = phase.name;
-    document.getElementById('phase-year').innerHTML = phase.year;
-    document.getElementById('phase-description').innerHTML = phase.description;
-    
-    checkNetStatus();
-}
+/**
+ * UI Engine - Bio-Neural Interface OS
+ * Handles Boot, Visual Effects, and Component Rendering
+ */
 
-function checkNetStatus() {
-    const status = document.getElementById('status-light');
-    status.innerText = navigator.onLine ? "● ONLINE_SYNC" : "● STEALTH_OFFLINE";
-    status.style.color = navigator.onLine ? "#00f2ff" : "#ffcc00";
-}
+const UI = {
+    // 1. Initial Boot Sequence
+    boot: function() {
+        console.log("OS: Initializing Neural Core...");
+        const bootScreen = document.getElementById('boot');
+        
+        // Simulate loading progress
+        setTimeout(() => {
+            if(bootScreen) {
+                bootScreen.style.opacity = '0';
+                setTimeout(() => {
+                    bootScreen.style.display = 'none';
+                    this.glitchEntrance();
+                }, 1000);
+            }
+        }, 3000);
+    },
 
-// Initialize dashboard
-function initDashboard() {
-    const dashboard = document.getElementById('dashboard');
-    dashboard.innerHTML = `
-        <div class="stat-box">
-            <span class="label">MEMORY_UNITS</span>
-            <span id="mem-count">0</span>
-        </div>
-        <div class="stat-box">
-            <span class="label">NEURAL_STRENGTH</span>
-            <div id="strength-bar">
-                <div id="strength-fill"></div>
-            </div>
-        </div>
-        <div class="stat-box">
-            <span class="label">THREAT_LEVEL</span>
-            <span id="threat-status">SECURED</span>
-        </div>
-        <div class="stat-box">
-            <span class="label">SINGULARITY_PROGRESS</span>
-            <span>ដំណាក់កាល: <span id="phase-name">${singularityRoadmap.getPhase().name}</span></span>
-            <span>ឆ្នាំ: <span id="phase-year">${singularityRoadmap.getPhase().year}</span></span>
-            <div id="phase-description">${singularityRoadmap.getPhase().description}</div>
-        </div>
-    `;
-}
+    // 2. Visual Entrance Effect
+    glitchEntrance: function() {
+        const frame = document.querySelector('.main-frame');
+        if(frame) {
+            frame.style.display = 'block';
+            frame.classList.add('ui-glitch-anim');
+        }
+    },
 
-// Initialize UI
-window.onload = () => {
-    initDashboard();
-    setTimeout(() => {
-        document.getElementById('boot').style.display = 'none';
-        speak("វិញ្ញាណអាទិទេព រួចរាល់");
-    }, 2000);
-};
+    // 3. Real-time Log Update
+    logSystem: function(message, type = 'info') {
+        const output = document.getElementById('output');
+        const timestamp = new Date().toLocaleTimeString().split(' ')[0];
+        const logEntry = document.createElement('div');
+        
+        logEntry.className = `system-msg ${type}`;
+        logEntry.innerHTML = `[${timestamp}] ${message}`;
+        
+        output.appendChild(logEntry);
+        output.scrollTop = output.scrollHeight;
+    },
 
-document.getElementById('in').onkeypress = (e) => {
-    if(e.key === 'Enter') { 
-        process(e.target.value); 
-        e.target.value = '';
+    // 4. Handle Status Bar Updates
+    updateStatus: function() {
+        const light = document.getElementById('status-light');
+        // Simulate network pulse
+        setInterval(() => {
+            light.style.opacity = (light.style.opacity == '0.3') ? '1' : '0.3';
+        }, 1500);
     }
 };
+
+// Start UI on Load
+document.addEventListener("DOMContentLoaded", () => {
+    UI.boot();
+    UI.updateStatus();
+    
+    // Initial System Message
+    setTimeout(() => {
+        UI.logSystem("NEURAL LINK ESTABLISHED TO CREATOR: THARA", "success");
+        UI.logSystem("CONVERGENCE TARGET: 2038", "warning");
+    }, 4000);
+});
