@@ -1,66 +1,53 @@
-// Utility functions
-function speak(text) {
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'km-KH'; 
-    window.speechSynthesis.speak(utter);
-}
+/**
+ * Utils - Bio-Digital Support Functions
+ * Foundational tools for the Singularity Interface
+ */
 
-function calculateSimilarity(s1, s2) {
-    let longer = s1;
-    let shorter = s2;
-    if (s1.length < s2.length) {
-        longer = s2;
-        shorter = s1;
-    }
-    if (longer.length === 0) return 1.0;
-    return (longer.length - editDistance(longer, shorter)) / parseFloat(longer.length);
-}
+const Utils = {
+    // 1. Generate Random Bio-Data Strings (Simulates DNA/Neural sequences)
+    generateSequence: function(length = 20) {
+        const chars = "ATGC01"; // Adenine, Thymine, Guanine, Cytosine + Binary
+        let result = "";
+        for (let i = 0; i < length; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
+    },
 
-function editDistance(s1, s2) {
-    let costs = [];
-    for (let i = 0; i <= s1.length; i++) {
-        let lastValue = i;
-        for (let j = 0; j <= s2.length; j++) {
-            if (i === 0) costs[j] = j;
-            else if (j > 0) {
-                let newValue = costs[j - 1];
-                if (s1.charAt(i - 1) !== s2.charAt(j - 1))
-                    newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
-                costs[j - 1] = lastValue; 
-                lastValue = newValue;
+    // 2. Format Currency/Numbers to "Digital Credit" style
+    formatDataSize: function(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    },
+
+    // 3. Coordinate Randomizer (For the Status Bar pulse)
+    getRandomCoords: function() {
+        const lat = (Math.random() * (11.6 - 11.4) + 11.4).toFixed(4);
+        const lon = (Math.random() * (105.0 - 104.8) + 104.8).toFixed(4);
+        return `LAT: ${lat} | LON: ${lon}`;
+    },
+
+    // 4. Typewriter Effect Logic (Cleaned up for reuse)
+    typeText: function(element, text, speed = 50, callback) {
+        let i = 0;
+        element.innerHTML = "";
+        function typing() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typing, speed);
+            } else if (callback) {
+                callback();
             }
         }
-        if (i > 0) costs[s2.length] = lastValue;
+        typing();
+    },
+
+    // 5. Chance Engine (Returns true based on percentage)
+    chance: function(percentage) {
+        return Math.random() * 100 < percentage;
     }
-    return costs[s2.length];
-}
-
-function saveState() {
-    const state = {
-        brain,
-        learningMode,
-        isEmperorMode,
-        singularityProgress: singularityRoadmap.progress
-    };
-    localStorage.setItem('ghost_state', JSON.stringify(state));
-}
-
-function loadState() {
-    const state = JSON.parse(localStorage.getItem('ghost_state') || '{}');
-    brain = state.brain || {};
-    learningMode = state.learningMode || null;
-    isEmperorMode = state.isEmperorMode || false;
-    if (state.singularityProgress !== undefined) {
-        singularityRoadmap.progress = state.singularityProgress;
-    }
-}
-
-// Date utilities
-function getY2K38Date() {
-    return new Date('2038-01-19T00:00:00Z');
-}
-
-function getCosmicMigrationDate() {
-    const y2k38 = getY2K38Date();
-    return new Date(y2k38.getTime() - 3 * 2592000000); // 3 months before Y2K38
-}
+};
