@@ -5,29 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Huokaing Thara Biology & AI Singularity</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
+  
   <div id="boot">
     <div class="loader"></div>
     <div class="boot-text">INITIALIZING NEURAL CORE...</div>
   </div>
   
-  <div id="dashboard" class="dashboard"></div>
-  
-  <div id="output" class="output"></div>
-  
-  <div class="input-container">
-    <input type="text" id="in" placeholder="Enter command.....">
-  </div>
-  
-  <div id="status-bar" class="status-bar">
-    <span id="status-light">● ONLINE_SYNC</span>
+  <div class="main-frame">
+    <div id="dashboard" class="dashboard">
+      <div class="holo-header">HUOKAING THARA: BIO-DATA INTERFACE</div>
+    </div>
+    
+    <div id="output" class="output">
+      <div class="system-msg">[SYSTEM]: Awaiting neural link input...</div>
+    </div>
+    
+    <div class="input-container">
+      <div class="terminal-wrapper">
+        <span class="prompt">>>></span>
+        <input type="text" id="in" placeholder="Enter DNA sequence or AI command..." autofocus>
+        <button id="send-btn" onclick="executeCommand()">
+          <span class="btn-text">TRANSMIT</span>
+          <span class="btn-icon">⚡</span>
+        </button>
+      </div>
+    </div>
+    
+    <div id="status-bar" class="status-bar">
+      <span id="status-light">● NEURAL_LINK_ACTIVE</span>
+      <span id="coord-display">LAT: 11.5 | LON: 104.9</span>
+      <span id="clock-display">00:00:00</span>
+    </div>
   </div>
 
   <script src="utils.js"></script>
-  <script src="main.js"></script>
-  <script src="ai_core.js"></script>
-  <script src="singularity_roadmap.js"></script>
+  <script src="ai_core.js"></script> <script src="singularity_roadmap.js"></script>
   <script src="ui.js"></script>
-</body>
+  <script src="main.js"></script> </body>
 </html>
