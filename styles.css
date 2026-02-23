@@ -111,3 +111,96 @@ body::before {
 .progress-fill {
     transition: width 2s ease-in-out;
 }
+
+/* Singularity Countdown Styling */
+.singularity-countdown {
+    text-align: center;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid var(--hologram-cyan);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.countdown-value {
+    font-size: 3em;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 20px var(--hologram-cyan);
+}
+
+.countdown-label {
+    font-size: 0.8em;
+    letter-spacing: 3px;
+    color: var(--hologram-cyan);
+}
+
+/* Roadmap Track */
+.roadmap-track {
+    border-left: 2px dashed rgba(0, 255, 255, 0.3);
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+.milestone {
+    position: relative;
+    margin-bottom: 25px;
+    opacity: 0.5;
+}
+
+.milestone.active {
+    opacity: 1;
+}
+
+.milestone::before {
+    content: "●";
+    position: absolute;
+    left: -27px;
+    top: 0;
+    color: var(--hologram-cyan);
+    text-shadow: 0 0 10px var(--hologram-cyan);
+}
+
+.m-year {
+    font-weight: bold;
+    color: var(--hologram-cyan);
+    font-size: 1.1em;
+}
+
+.m-content p {
+    font-size: 0.85em;
+    margin: 5px 0 0 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* UI Entrance Glitch */
+.ui-glitch-anim {
+    animation: entrance 0.5s ease-out;
+}
+
+@keyframes entrance {
+    0% { transform: scale(1.1); filter: brightness(2) blur(10px); opacity: 0; }
+    100% { transform: scale(1); filter: brightness(1) blur(0); opacity: 1; }
+}
+
+/* System Message Types */
+.system-msg.success {
+    color: #00ff88;
+    border-left: 2px solid #00ff88;
+}
+
+.system-msg.warning {
+    color: #ffcc00;
+    border-left: 2px solid #ffcc00;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
+
+/* Scrollbar for the Terminal */
+#output::-webkit-scrollbar {
+    width: 4px;
+}
+#output::-webkit-scrollbar-thumb {
+    background: var(--hologram-cyan);
+    box-shadow: 0 0 10px var(--hologram-cyan);
+}
+
