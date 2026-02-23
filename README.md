@@ -1,12 +1,3 @@
-Table of Contents
-Installation
-Usage
-Features
-Contributing
-License
-Installation
-Provide step-by-step instructions on how to install your project. Include any dependencies that need to be installed and how to install them. For example:
-
 sh
 # Clone the repository
 git clone https://github.com/yourusername/yourproject.git
