@@ -50,7 +50,17 @@ function loadState() {
     brain = state.brain || {};
     learningMode = state.learningMode || null;
     isEmperorMode = state.isEmperorMode || false;
-    if (state.singularityProgress) {
+    if (state.singularityProgress !== undefined) {
         singularityRoadmap.progress = state.singularityProgress;
     }
+}
+
+// Date utilities
+function getY2K38Date() {
+    return new Date('2038-01-19T00:00:00Z');
+}
+
+function getCosmicMigrationDate() {
+    const y2k38 = getY2K38Date();
+    return new Date(y2k38.getTime() - 3 * 2592000000); // 3 months before Y2K38
 }
