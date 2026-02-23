@@ -116,10 +116,11 @@
 
 
 ### កំណត់សម្គាល់បន្ថែម
-- **Y2K Problem**: បញ្ហាកាលបរិច្ឆេទឆ្នាំ 2000 (ដំណាក់កាលដំបូងនៃបញ្ហាវិបត្តិសហវត្ស)
+- **Y2K Problem**: បញ្ហាកាលបរិច្ឆេទឆ្នាំ 2000 (ដំណាក់កាលដំបូងនៃបញ្ហាវិបត្តិសហវត្ស)។
 - **Y2K19**: ដំណាក់កាលសំខាន់នៃការអភិវឌ្ឍន៍ AI ទូទៅ (2019)
 - **Y2K38 Problem**: វិបត្តិកាលបរិច្ឆេទ 32-bit នៅថ្ងៃទី 19 ខែមករា ឆ្នាំ 2038
-- **Cosmic Migration Timeline Adjustment**: ការផ្លាស់ប្តូរអារ្យធម៌មនុស្សទៅក្នុងអវកាស 3 ខែមុនពេលវិបត្តិ Y2K38
+- **Cosmic Migration Timeline Adjustment**: ការផ្លាស់ប្តូរអារ្យធម៌មនុស្សទៅក្នុងអវកាស 3 ខែមុនពេលវិបត្តិ Y2K38​ (The Year 2038 problem occurs on January 19, 2038, when 32-bit Unix time overflows (2,147,483,647 seconds after January 1, 1970).) Cosmic Migration Timeline Adjustment: ការពន្លឿនគម្រោង Cosmic Migration មុនបញ្ហា Y2K38 ដើម្បីធានាសុវត្ថិភាពនៃប្រព័ន្ធ AI និងហេដ្ឋារចនាសម្ព័ន្ធឌីជីថល។
+(Accelerated Cosmic Migration timeline to ensure AI and digital infrastructure safety before the Y2K38 crisis.)
 
 
 ## ការចូលរួមចំណែក
