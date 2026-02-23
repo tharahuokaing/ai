@@ -51,6 +51,12 @@ function process(q) {
         logMsg("AI: " + roadmap, "ai");
         speak(roadmap);
     }
+    // Y2K/Y2K19/Y2K38 references
+    else if (qLow.includes("y2k") || qLow.includes("2000") || qLow.includes("2038")) {
+        const y2kResponse = getY2KResponse();
+        logMsg("AI: " + y2kResponse, "ai");
+        speak(y2kResponse);
+    }
     // Learning mode trigger
     else {
         speak("ខ្ញុំមិនទាន់យល់ទេ តើវាជាអ្វីដែរ?");
