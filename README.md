@@ -1,6 +1,3 @@
-Project Title
-Short Description: Briefly describe what your project does or is about.
-
 Table of Contents
 Installation
 Usage
