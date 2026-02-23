@@ -1,152 +1,63 @@
 :root {
-  --holo-blue: #00ffff;
-  --holo-green: #00ff00;
-  --holo-red: #ff00ff;
-  --holo-purple: #c900ff;
-  --holo-orange: #ff8800;
-  --holo-yellow: #ffff00;
-  --bg-color: #000010;
-  --panel-color: rgba(10, 15, 30, 0.9);
-  --glass-blur: blur(10px);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  --hologram-cyan: #00ffff;
+  --bg-dark: #000a14;
 }
 
 body {
-  background-color: var(--bg-color);
-  color: white;
-  font-family: 'Khmer OS System', sans-serif;
-  line-height: 1.6;
-  overflow-x: hidden;
-  background-image: 
-    radial-gradient(circle at 10% 20%, rgba(0, 128, 255, 0.15) 0%, transparent 30%),
-    radial-gradient(circle at 90% 70%, rgba(128, 0, 255, 0.15) 0%, transparent 30%);
-}
-
-/* Boot Screen */
-#boot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--panel-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.loader {
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-top: 4px solid var(--holo-blue);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-  margin-bottom: 20px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.boot-text {
-  color: var(--holo-blue);
-  font-size: 1.2em;
-}
-
-/* Dashboard */
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  padding: 20px;
-}
-
-.stat-box {
-  background: var(--panel-color);
-  border: 1px solid var(--holo-blue);
-  border-radius: 10px;
-  padding: 15px;
-  backdrop-filter: var(--glass-blur);
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
-}
-
-.label {
-  display: block;
-  margin-bottom: 10px;
-  color: var(--holo-purple);
-}
-
-/* Progress Bar */
-#strength-bar {
-  height: 20px;
-  background: rgba(0, 255, 255, 0.1);
-  border-radius: 10px;
+  background-color: var(--bg-dark);
+  color: var(--hologram-cyan);
+  font-family: 'Share Tech Mono', 'Kantumruy', monospace;
+  margin: 0;
   overflow: hidden;
 }
 
-#strength-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--holo-blue), var(--holo-purple));
-  border-radius: 10px;
-}
-
-/* Output */
-.output {
-  padding: 20px;
-  min-height: 300px;
-}
-
-.user, .ai {
-  margin: 10px 0;
-  padding: 10px;
+.terminal-wrapper {
+  display: flex;
+  background: rgba(0, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  padding: 5px 15px;
   border-radius: 5px;
-}
-
-.user {
-  background: rgba(0, 255, 255, 0.1);
-  border-left: 3px solid var(--holo-blue);
-}
-
-.ai {
-  background: rgba(201, 0, 255, 0.1);
-  border-left: 3px solid var(--holo-purple);
-}
-
-/* Input */
-.input-container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px;
+  align-items: center;
+  gap: 10px;
 }
 
 #in {
-  width: 100%;
-  padding: 15px;
-  background: rgba(0, 255, 255, 0.1);
-  border: 1px solid var(--holo-blue);
-  border-radius: 20px;
-  color: white;
-  font-family: 'Khmer OS System', sans-serif;
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--hologram-cyan);
+  padding: 12px;
+  font-size: 1.1em;
+  outline: none;
 }
 
-/* Status Bar */
-.status-bar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  padding: 10px 20px;
-  background: rgba(0, 0, 0, 0.5);
-  border-bottom-left-radius: 10px;
-  font-size: 0.9rem;
+#send-btn {
+  background: var(--hologram-cyan);
+  color: var(--bg-dark);
+  border: none;
+  padding: 8px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#send-btn:hover {
+  background: #fff;
+  box-shadow: 0 0 15px #fff;
+}
+
+.system-msg {
+  color: rgba(0, 255, 255, 0.6);
+  border-left: 2px solid var(--hologram-cyan);
+  padding-left: 10px;
+  margin-bottom: 10px;
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; }
 }
