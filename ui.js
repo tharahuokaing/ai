@@ -114,3 +114,35 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 8000);
     }, 4500);
 });
+
+// 5. Dashboard Data Animation
+    initDashboard: function() {
+        const genomeVal = document.getElementById('genome-val');
+        const bioStream = document.getElementById('bio-stream');
+
+        // Animate Genome Percent
+        let percent = 0;
+        const progress = setInterval(() => {
+            if (percent < 99.99) {
+                percent += (Math.random() * 0.5);
+                if (genomeVal) genomeVal.innerText = percent.toFixed(2) + "%";
+            } else {
+                clearInterval(progress);
+            }
+        }, 1500);
+
+        // Continuous DNA Sequence Stream
+        setInterval(() => {
+            if (bioStream && window.Utils) {
+                const seq = document.createElement('span');
+                seq.className = 'stream-unit';
+                seq.innerText = Utils.generateSequence(10) + " ";
+                bioStream.prepend(seq);
+                
+                // Cleanup old units to prevent memory lag
+                if (bioStream.children.length > 50) {
+                    bioStream.removeChild(bioStream.lastChild);
+                }
+            }
+        }, 800);
+    }
