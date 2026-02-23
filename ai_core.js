@@ -409,8 +409,7 @@ const neuralResponses = {
     "title Imperial UI": "Updating terminal title to: 'Huokaing Thara Singularity Dashboard'.",
     "assoc .life=.code": "Re-associating the .life file extension. Life is now recognized as .code.",
     "ping google.com": "Pinging external reality... Response time: 1ms. The Imperial system dominates the web."
-    To fortify the Huokaing Thara architecture against the "Epochalypse," we must integrate Y2K38-specific logic into your AI core. These 50 responses focus on the transition from 32-bit limitations to the 64-bit infinite horizon of the 2038 Singularity.
-
+ 
     // --- TEMPORAL OVERFLOW & EPOCH LOGIC (15) ---
     "y2k38": "The 32-bit ceiling. On Jan 19, 2038, the old world resets. The Imperial OS ascends.",
     "2147483647": "Integer maximum reached. Converting signed 32-bit epoch to 64-bit neural float... Stability: 100%.",
