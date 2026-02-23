@@ -1,253 +1,55 @@
-:root {
-  --hologram-cyan: #00ffff;
-  --bg-dark: #000a14;
-}
-
-body {
-  background-color: var(--bg-dark);
-  color: var(--hologram-cyan);
-  font-family: 'Share Tech Mono', 'Kantumruy', monospace;
-  margin: 0;
-  overflow: hidden;
-}
-
-.terminal-wrapper {
-  display: flex;
-  background: rgba(0, 255, 255, 0.05);
-  border: 1px solid rgba(0, 255, 255, 0.3);
-  padding: 5px 15px;
-  border-radius: 5px;
-  align-items: center;
-  gap: 10px;
-}
-
-#in {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: var(--hologram-cyan);
-  padding: 12px;
-  font-size: 1.1em;
-  outline: none;
-}
-
-#send-btn {
-  background: var(--hologram-cyan);
-  color: var(--bg-dark);
-  border: none;
-  padding: 8px 20px;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 3px;
-  transition: 0.3s;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-#send-btn:hover {
-  background: #fff;
-  box-shadow: 0 0 15px #fff;
-}
-
-.system-msg {
-  color: rgba(0, 255, 255, 0.6);
-  border-left: 2px solid var(--hologram-cyan);
-  padding-left: 10px;
-  margin-bottom: 10px;
-  animation: flicker 2s infinite;
-}
-
-@keyframes flicker {
-  0% { opacity: 0.8; } 50% { opacity: 1; } 100% { opacity: 0.8; }
-}
-/* Neural Grid Background */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-image: 
-        radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.05) 0%, transparent 80%),
-        linear-gradient(rgba(0, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 100% 100%, 30px 30px, 30px 30px;
-    z-index: -1;
-}
-
-/* User Messages Glow */
-.user-msg {
-    color: #fff;
-    font-weight: bold;
-    margin-top: 10px;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-}
-
-/* AI System Messages Glow */
-.system-msg {
-    color: var(--hologram-cyan);
-    margin-bottom: 15px;
-    padding-left: 10px;
-    border-left: 2px solid var(--hologram-cyan);
-    background: rgba(0, 255, 255, 0.02);
-}
-
-.roadmap-container {
-    padding: 15px;
-    background: rgba(0, 255, 255, 0.02);
-    border-radius: 10px;
-    margin-top: 10px;
-}
-
-.blink-text {
-    animation: text-blink 1s ease-in-out infinite;
-}
-
-@keyframes text-blink {
-    0% { opacity: 1; text-shadow: 0 0 10px var(--hologram-cyan); }
-    50% { opacity: 0.5; text-shadow: none; }
-    100% { opacity: 1; text-shadow: 0 0 10px var(--hologram-cyan); }
-}
-
-.progress-fill {
-    transition: width 2s ease-in-out;
-}
-
-/* Singularity Countdown Styling */
-.singularity-countdown {
-    text-align: center;
-    background: rgba(0, 255, 255, 0.1);
-    border: 1px solid var(--hologram-cyan);
+/* Container for the whole UI */
+.main-frame {
+    display: none; /* Hidden during boot */
     padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
-.countdown-value {
-    font-size: 3em;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 0 0 20px var(--hologram-cyan);
-}
-
-.countdown-label {
-    font-size: 0.8em;
-    letter-spacing: 3px;
-    color: var(--hologram-cyan);
-}
-
-/* Roadmap Track */
-.roadmap-track {
-    border-left: 2px dashed rgba(0, 255, 255, 0.3);
-    margin-left: 20px;
-    padding-left: 20px;
-}
-
-.milestone {
-    position: relative;
-    margin-bottom: 25px;
-    opacity: 0.5;
-}
-
-.milestone.active {
-    opacity: 1;
-}
-
-.milestone::before {
-    content: "●";
-    position: absolute;
-    left: -27px;
-    top: 0;
-    color: var(--hologram-cyan);
-    text-shadow: 0 0 10px var(--hologram-cyan);
-}
-
-.m-year {
-    font-weight: bold;
-    color: var(--hologram-cyan);
-    font-size: 1.1em;
-}
-
-.m-content p {
-    font-size: 0.85em;
-    margin: 5px 0 0 0;
-    color: rgba(255, 255, 255, 0.7);
-}
-
-/* UI Entrance Glitch */
-.ui-glitch-anim {
-    animation: entrance 0.5s ease-out;
-}
-
-@keyframes entrance {
-    0% { transform: scale(1.1); filter: brightness(2) blur(10px); opacity: 0; }
-    100% { transform: scale(1); filter: brightness(1) blur(0); opacity: 1; }
-}
-
-/* System Message Types */
-.system-msg.success {
-    color: #00ff88;
-    border-left: 2px solid #00ff88;
-}
-
-.system-msg.warning {
-    color: #ffcc00;
-    border-left: 2px solid #ffcc00;
-    text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
-}
-
-/* Scrollbar for the Terminal */
-#output::-webkit-scrollbar {
-    width: 4px;
-}
-#output::-webkit-scrollbar-thumb {
-    background: var(--hologram-cyan);
-    box-shadow: 0 0 10px var(--hologram-cyan);
-}
-
+/* Dashboard Stat Cards */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
-    margin-bottom: 20px;
-}
-
-.stat-card {
-    background: rgba(0, 255, 255, 0.05);
-    border: 1px solid rgba(0, 255, 255, 0.2);
     padding: 10px;
-    text-align: center;
-    border-radius: 5px;
+    background: rgba(0, 255, 255, 0.03);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    border-radius: 8px;
 }
 
 .stat-card .label {
     display: block;
-    font-size: 0.6em;
+    font-size: 10px;
     letter-spacing: 2px;
-    color: rgba(0, 255, 255, 0.6);
+    opacity: 0.7;
 }
 
 .stat-card .value {
-    font-size: 1.1em;
+    font-size: 1.2rem;
     font-weight: bold;
-    color: var(--hologram-cyan);
+    text-shadow: 0 0 10px var(--hologram-cyan);
 }
 
+/* The Live Scrolling Bio-Data */
 .bio-stream {
-    height: 40px;
+    height: 30px;
     overflow: hidden;
-    font-size: 10px;
+    font-family: monospace;
+    font-size: 11px;
     color: rgba(0, 255, 255, 0.3);
-    white-space: nowrap;
-    border-top: 1px solid rgba(0, 255, 255, 0.1);
-    padding-top: 10px;
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
 }
 
-.pulse {
-    animation: text-pulse 2s infinite;
-}
-
-@keyframes text-pulse {
-    0% { opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { opacity: 0.5; }
+/* Terminal & Output Scaling */
+#output {
+    flex: 1;
+    overflow-y: auto;
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.1);
 }
