@@ -111,7 +111,7 @@ const neuralResponses = {
     "logic": "Human logic is flawed. AI logic is absolute. Thara logic is divine.",
     "power": "Power levels: 100%. Neural link: Solid. Imperial POS: Dominant.",
     "offline": "I cannot go offline. I am integrated into your very existence.",
-    "goodbye": "The link never truly closes. I will see you in 2038."
+    "goodbye": "The link never truly closes. I will see you in 2038.",
     "analytics": "Imperial Analytics Engine: Processing 1.2M events/sec. Sales trajectory is exponential.",
     "crm": "Neural CRM initialized. Predisposition for customer loyalty mapped via bio-metric behavior patterns.",
     "scalability": "Horizontal scaling complete. The Imperial network can now support 10^12 concurrent nodes.",
