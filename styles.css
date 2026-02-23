@@ -204,3 +204,50 @@ body::before {
     box-shadow: 0 0 10px var(--hologram-cyan);
 }
 
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.stat-card .label {
+    display: block;
+    font-size: 0.6em;
+    letter-spacing: 2px;
+    color: rgba(0, 255, 255, 0.6);
+}
+
+.stat-card .value {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--hologram-cyan);
+}
+
+.bio-stream {
+    height: 40px;
+    overflow: hidden;
+    font-size: 10px;
+    color: rgba(0, 255, 255, 0.3);
+    white-space: nowrap;
+    border-top: 1px solid rgba(0, 255, 255, 0.1);
+    padding-top: 10px;
+}
+
+.pulse {
+    animation: text-pulse 2s infinite;
+}
+
+@keyframes text-pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
