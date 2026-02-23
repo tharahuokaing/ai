@@ -1,36 +1,33 @@
 <!DOCTYPE html>
 <html lang="km">
 <head>
-    <meta charset="UTF-8">
-    <title>GHOST CORE v8.0 - SENTIENT EDITION</title>
-    <meta name="robots" content="noindex, nofollow, noarchive, nocache">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Huokaing Thara Biology & AI Singularity</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div id="boot">
+    <div class="loader"></div>
+    <div class="boot-text">INITIALIZING NEURAL CORE...</div>
+  </div>
+  
+  <div id="dashboard" class="dashboard"></div>
+  
+  <div id="output" class="output"></div>
+  
+  <div class="input-container">
+    <input type="text" id="in" placeholder="Enter command...">
+  </div>
+  
+  <div id="status-bar" class="status-bar">
+    <span id="status-light">● ONLINE_SYNC</span>
+  </div>
 
-<div id="boot">INITIALIZING SENTIENT CORE...</div>
-
-<div id="hologram-frame">
-    <div id="main-ui">
-        <header>
-            <h2 id="core-title">GHOST_CORE.SYS</h2>
-            <div id="status-light">● SENTIENCE_ACTIVE</div>
-        </header>
-
-        <div id="out"></div>
-
-        <div class="controls">
-            <button id="mic-btn">🎤</button>
-            <input type="text" id="in" placeholder="How can i help you today?..." autocomplete="off">
-            <button onclick="document.getElementById('csv').click()">Train</button>
-            <input type="file" id="csv" accept=".csv" style="display:none">
-        </div>
-    </div>
-
-    <div id="dashboard"></div>
-</div>
-
-<script src="ghost_core.js"></script>
-<script src="ghost_core1.js"></script>
+  <script src="utils.js"></script>
+  <script src="main.js"></script>
+  <script src="ai_core.js"></script>
+  <script src="singularity_roadmap.js"></script>
+  <script src="ui.js"></script>
 </body>
 </html>
