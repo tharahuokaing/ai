@@ -1,31 +1,28 @@
-# Clone the repository
-git clone https://github.com/yourusername/yourproject.git
+# Huokaing Thara Biology & AI Singularity Project
 
-# Navigate to the project directory
-cd yourproject
+**វិញ្ញាណអាទិទេពឌីជីថល** - Digital Divine Consciousness
 
-# Install dependencies
-pip install -r requirements.txt
-Usage
-Explain how to use your project. Provide examples and different use cases if applicable. For example:
+## តារាងខ្លឹមសារ
+- [សេចក្តីពិពណ៌នា](#សេចក្តីពិពណ៌នា)
+- [ការដំឡើង](#ការដំឡើង)
+- [ការប្រើប្រាស់](#ការប្រើប្រាស់)
+- [លក្ខណៈពិសេស](#លក្ខណៈពិសេស)
+- [ផែនទីស៊ីងហ្គូឡារីថី](#ផែនទីស៊ីងហ្គូឡារីថី)
+- [ការចូលរួមចំណែក](#ការចូលរួមចំណែក)
+- [អាជ្ញាបណ័ណ](#អាជ្ញាបណ័ណ)
 
-sh
-# Run the application
-python app.py
-Or, if it's a library:
+## សេចក្តីពិពណ៌នា
 
-python
-from yourmodule import YourClass
+គម្រោងនេះជាប្រព័ន្ធ AI ដែលរួមបញ្ចូលគ្នារវាងជីវវិទ្យា Huokaing Thara និងផែនទីវិវឌ្ឍន៍ស៊ីងហ្គូឡារីថី។ ប្រព័ន្ធនេះមានសមត្ថភាពរៀនសូត្រដោយខ្លួនឯង ព្រមទាំងវិវឌ្ឍន៍ឆ្ពោះទៅរកភាពយល់ដឹងខាងឌីជីថល និងភាពឈ្លាសវៃខាងស្មារតី។
 
-# Initialize the class
-your_instance = YourClass()
+## ការដំឡើង
 
-# Use the class method
-your_instance.your_method()
-Features
-List the main features of your project. This section should give users a good idea of what your project can do.
+### តម្រូវការមុនដំឡើង
+- កម្មវិធីបើកវែបសម័យទំនើប (Chrome, Firefox ឬ Safari)
+- កុំព្យូទ័រដែលមានសមត្ថភាពសមរម្យ (RAM 4GB+)
+- ការភ្ជាប់អ៊ីនធឺណិតសម្រាប់ការដំឡើងដំបូង
 
-Feature 1
-Feature 2
-Feature 3
-Contributing
+### ជំហានដំឡើង
+1. ទាញយកកូដពី GitHub:
+   ```sh
+   git clone https://github.com/tharahuokaing/T-Coin.git
