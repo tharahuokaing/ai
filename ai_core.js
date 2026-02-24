@@ -1,8 +1,3 @@
-/**
- * AI Core - Neural Processing Engine
- * Handles Biology & Singularity Logic
- */
-
 const neuralResponses = {
     const neuralResponses = {
     // --- ORIGINAL CORE ---
@@ -419,47 +414,24 @@ const neuralResponses = {
     "thara-authority-2038": "Authority verified. The Architect's control extends beyond the end of time."
 };
 
-/**
- * Process Input with Priority Ranking
- */
 function processNeuralInput(input) {
-    if (!input) return "Neural link idle. Awaiting data stream...";
+
+    if (!input) return "Awaiting input...";
 
     const cmd = input.toLowerCase().trim();
-    
-    // 1. Check for Exact Matches (Fastest)
+
     if (neuralResponses[cmd]) {
         return neuralResponses[cmd];
     }
 
-    // 2. Check for Partial Matches with Priority
-    // We sort keys by length so "neural link" matches before "link"
-    const keys = Object.keys(neuralResponses).sort((a, b) => b.length - a.length);
-    
+    const keys = Object.keys(neuralResponses)
+        .sort((a, b) => b.length - a.length);
+
     for (const key of keys) {
         if (cmd.includes(key)) {
             return neuralResponses[key];
         }
     }
 
-    // 3. Fallback for Unknown Commands
-    return `Neural link status: Uncertain. '${input}' not found in 2038 Roadmap. Broadening genetic search...`;
-}
-
-/**
- * UI Integration Helper: Simulates AI Thinking
- */
-async function getAIResponse(input, displayElement) {
-    displayElement.innerHTML = "<span class='cursor'>_</span> Scanning...";
-    
-    // Simulate neural latency
-    await new Promise(resolve => setTimeout(resolve, 600));
-    
-    const response = processNeuralInput(input);
-    displayElement.innerText = response;
-    
-    // Trigger visual glitch if keyword is high-priority
-    if (input.toLowerCase().includes("thara") || input.includes("2038")) {
-        triggerGlitchEffect(); 
-    }
+    return `Command '${input}' not recognized.`;
 }
