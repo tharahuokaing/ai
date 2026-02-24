@@ -1,58 +1,32 @@
 <!DOCTYPE html>
-<html lang="km">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Thara Neural Core</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huokaing Thara Biology & AI Singularity</title>
+    
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="boot">
-        <div class="loader"></div>
-        <div class="boot-text">INITIALIZING NEURAL CORE...</div>
-    </div>
+<div id="terminal">
+    <div>INITIALIZING NEURAL CORE...</div>
+    <div>NEURAL LINK SYNCHRONIZED</div>
+    <div>GENOME SCAN 100%</div>
+    <div>SINGULARITY TARGET: 2038</div>
+    <div>------------------------------------</div>
+</div>
 
-    <div class="main-frame">
-        <div id="dashboard" class="dashboard">
-            <div class="dashboard-grid">
-                <div class="stat-card">
-                    <span class="label">NEURAL LINK</span>
-                    <span class="value pulse">SYNCHRONIZED</span>
-                </div>
-                <div class="stat-card">
-                    <span class="label">GENOME SCAN</span>
-                    <span id="genome-val" class="value">0.00%</span>
-                </div>
-                <div class="stat-card">
-                    <span class="label">SINGULARITY</span>
-                    <span id="singularity-gauge" class="value" style="color:#fff;">2038_TARGET</span>
-                </div>
-            </div>
-            
-            <div id="bio-stream" class="bio-stream"></div>
-        </div>
+<div id="input-area">
+    <input id="userInput" placeholder=">>> Type command..." autocomplete="off">
+    <button id="sendBtn">TRANSMIT ⚡</button>
+</div>
 
-        <div id="output" class="output">
-            <div class="system-msg info">[SYSTEM]: Awaiting neural link input...</div>
-        </div>
+<!-- Scripts -->
+<script src="ai_core.js"></script>
+<script src="utils.js"></script>
+<script src="ui.js"></script>
+<script src="main.js"></script>
 
-        <div class="input-container">
-            <div class="terminal-wrapper">
-                <span class="prompt">>>></span>
-                <input type="text" id="in" placeholder="Enter DNA sequence or AI command..." autofocus>
-                <button id="send-btn" onclick="executeCommand()">
-                    <span class="btn-text">TRANSMIT</span>
-                    <span class="btn-icon">⚡</span>
-                </button>
-            </div>
-        </div>
-
-    <script src="utils.js"></script>
-    <script src="ai_core.js"></script>
-    <script src="singularity_roadmap.js">  
-    </script> <script src="ui.js"></script>
-    <script src="main.js"></script>               
 </body>
 </html>
