@@ -1,121 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Thara Neural Core</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Neural Core Interface</title>
+
+  <!-- Optional: Add some basic styling -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    #output {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-top: 10px;
+      height: 200px;
+      overflow: auto;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+    #inputBox {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      border: 1px solid #888;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+
 </head>
 <body>
 
-<div id="terminal">
-    <div>INITIALIZING NEURAL CORE...</div>
-    <div>NEURAL LINK SYNCHRONIZED</div>
-    <div>GENOME SCAN 100%</div>
-    <div>SINGULARITY TARGET: 2038</div>
-    <div>------------------------------------</div>
-</div>
+  <h1>AI Neural Core Demo</h1>
 
-<div id="input-area">
-    <input id="userInput" placeholder=">>> Type command..." autocomplete="off">
-    <button id="sendBtn">TRANSMIT ⚡</button>
-</div>
+  <!-- User Text Input -->
+  <input
+    id="inputBox"
+    type="text"
+    placeholder="Type your command here..."
+  />
 
-<!-- Scripts -->
-<script src="ai_core.js"></script>
-<script src="utils.js"></script>
-<script src="ui.js"></script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Thara Neural Core</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <!-- Submit Button -->
+  <button id="runButton">Run Command</button>
 
-<div id="terminal">
-    <div>INITIALIZING NEURAL CORE...</div>
-    <div>NEURAL LINK SYNCHRONIZED</div>
-    <div>GENOME SCAN 100%</div>
-    <div>SINGULARITY TARGET: 2038</div>
-    <div>------------------------------------</div>
-</div>
+  <!-- Output area -->
+  <div id="output">Awaiting input...</div>
 
-<div id="input-area">
-    <input id="userInput" placeholder=">>> Type command..." autocomplete="off">
-    <button id="sendBtn">TRANSMIT ⚡</button>
-</div>
-
-<!-- Scripts -->
-<script src="ai_core.js"></script>
-<script src="utils.js"></script>
-<script src="ui.js"></script>
-<script src="main.js"></script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Thara Neural Core</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-<div id="terminal">
-    <div>INITIALIZING NEURAL CORE...</div>
-    <div>NEURAL LINK SYNCHRONIZED</div>
-    <div>GENOME SCAN 100%</div>
-    <div>SINGULARITY TARGET: 2038</div>
-    <div>------------------------------------</div>
-</div>
-
-<div id="input-area">
-    <input id="userInput" placeholder=">>> Type command..." autocomplete="off">
-    <button id="sendBtn">TRANSMIT ⚡</button>
-</div>
-
-<!-- Scripts -->
-<script src="ai_core.js"></script>
-<script src="utils.js"></script>
-<script src="ui.js"></script>
-<script src="main.js"></script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Thara Neural Core</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-<div id="terminal">
-    <div>INITIALIZING NEURAL CORE...</div>
-    <div>NEURAL LINK SYNCHRONIZED</div>
-    <div>GENOME SCAN 100%</div>
-    <div>SINGULARITY TARGET: 2038</div>
-    <div>------------------------------------</div>
-</div>
-
-<div id="input-area">
-    <input id="userInput" placeholder=">>> Type command..." autocomplete="off">
-    <button id="sendBtn">TRANSMIT ⚡</button>
-</div>
-
-<!-- Scripts -->
-<script src="ai_core.js"></script>
-<script src="utils.js"></script>
-<script src="ui.js"></script>
-<script src="main.js"></script>
-<script src="singularity_roadmap.js"></script>
+  <!-- Link external JavaScript file -->
+  <script src="app.js"></script>
 
 </body>
 </html>
