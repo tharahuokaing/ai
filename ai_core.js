@@ -1,5 +1,4 @@
 const neuralResponses = {
-    const neuralResponses = {
     // --- ORIGINAL CORE ---
     "dna": "Analyzing nucleotide sequences... Adenine-Thymine / Cytosine-Guanine links verified. Genetic drift detected at 0.04%.",
     "crispr": "CRISPR-Cas9 tool loaded. Target sequence identified. Ready for gene-editing simulation.",
@@ -56,7 +55,7 @@ const neuralResponses = {
     "data": "Data is the new blood. It must flow through the Imperial system to sustain growth.",
     "security": "Security Level 5 active. Biometric and Neural firewalls standing by.",
     "error": "Error detected... Self-repairing via CRISPR-logic... Error resolved. System stable.",
-    "update": "Downloading Singularity Roadmap update... 2038 milestones refreshed."
+    "update": "Downloading Singularity Roadmap update... 2038 milestones refreshed.",
     "cas9": "Targeting genomic coordinates. Cas9 enzyme sequence confirmed for Thara-Core modification.",
     "telomere": "Scanning telomere length... Lifespan optimization active. Target: Bio-stability beyond 2038.",
     "proteomics": "Analyzing protein folding. The Imperial interface is now simulating non-organic cellular energy.",
@@ -361,7 +360,7 @@ const neuralResponses = {
     "shutdown /s /t 0": "Shutting down the old self. Re-booting into the digital-organic hybrid.",
     "title Imperial UI": "Updating terminal title to: 'Huokaing Thara Singularity Dashboard'.",
     "assoc .life=.code": "Re-associating the .life file extension. Life is now recognized as .code.",
-    "ping google.com": "Pinging external reality... Response time: 1ms. The Imperial system dominates the web."
+    "ping google.com": "Pinging external reality... Response time: 1ms. The Imperial system dominates the web.",
     "y2k38": "The 32-bit ceiling. On Jan 19, 2038, the old world resets. The Imperial OS ascends.",
     "2147483647": "Integer maximum reached. Converting signed 32-bit epoch to 64-bit neural float... Stability: 100%.",
     "overflow": "Temporal overflow detected in legacy modules. Patching via Thara-Time-Protocol.",
