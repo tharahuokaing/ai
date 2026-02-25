@@ -1,3 +1,4 @@
+## ⚠️ Educational Use Only
 ### README.md
 ```markdown
 # Huokaing Thara Biology & AI Singularity Project
