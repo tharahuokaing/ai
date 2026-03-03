@@ -144,3 +144,72 @@ button:hover {
     color: #000;
     box-shadow: 0 0 25px var(--hologram-cyan);
 }
+
+.loading {
+    color: var(--hologram-cyan);
+    font-style: italic;
+    letter-spacing: 2px;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+/* ធ្វើឱ្យ Output Box មើលទៅដូចអេក្រង់កុំព្យូទ័រចាស់ */
+#output {
+    border-left: 4px solid var(--hologram-cyan);
+    background: linear-gradient(rgba(0, 242, 255, 0.02) 0%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+#voiceButton {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--hologram-cyan);
+    color: var(--hologram-cyan);
+    font-size: 1.2rem;
+    padding: 0 15px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#voiceButton:hover {
+    background: var(--hologram-cyan);
+    color: #000;
+}
+
+/* ចលនាពេល AI កំពុងនិយាយត្រឡប់មកវិញ (ប្រសិនបើមាន) */
+.speaking {
+    animation: voiceWave 1s infinite alternate;
+}
+
+@keyframes voiceWave {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); box-shadow: 0 0 15px var(--hologram-cyan); }
+}
+
+/* styles.css - បន្ថែមស្ទីលសម្រាប់ Roadmap Item */
+
+.roadmap-item {
+    border-left: 2px solid var(--hologram-cyan);
+    margin-left: 20px;
+    padding: 15px;
+    position: relative;
+    background: rgba(0, 242, 255, 0.05);
+    margin-bottom: 20px;
+    transition: 0.5s;
+}
+
+/* ស្ទីលពិសេសសម្រាប់ឆ្នាំ ២០៣៨ */
+.roadmap-item[data-year="Y2K38 (2038)"] {
+    border-left: 2px solid #ff4444; /* ពណ៌ក្រហមព្រមាន */
+    box-shadow: 0 0 20px rgba(255, 68, 68, 0.2);
+    animation: criticalAlert 2s infinite;
+}
+
+@keyframes criticalAlert {
+    0% { border-color: #ff4444; }
+    50% { border-color: #00f2ff; }
+    100% { border-color: #ff4444; }
+}
