@@ -1,0 +1,146 @@
+/* styles.css - Ultimate Hologram & Matrix Edition */
+
+:root {
+    --hologram-cyan: #00f2ff;
+    --hologram-blue: #0041ff;
+    --matrix-green: rgba(0, 255, 70, 0.15); /* ពណ៌ Matrix ស្រាលៗ */
+    --glass-bg: rgba(0, 15, 30, 0.85);
+    --primary-bg: #00050a;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* រៀបចំ Matrix Background */
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* ដាក់នៅក្រោយគេបង្អស់ */
+    opacity: 0.3; /* កុំឱ្យវាច្បាស់ពេក រំខានភ្នែក */
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--primary-bg);
+    color: var(--hologram-cyan);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ឥទ្ធិពលខ្សែស្កេន Hologram */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 242, 255, 0.05) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 3px, 3px 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+header {
+    background: var(--glass-bg);
+    border-bottom: 2px solid var(--hologram-cyan);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+}
+
+/* ឥទ្ធិពលអក្សររំញ័រ (Glitch Effect) */
+h1 {
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+    animation: glitch 3s infinite;
+}
+
+@keyframes glitch {
+    0% { text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; }
+    50% { text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
+    100% { text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; }
+}
+
+main {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+section {
+    background: var(--glass-bg);
+    border: 1px solid var(--hologram-cyan);
+    border-radius: 2px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.1), inset 0 0 10px rgba(0, 242, 255, 0.05);
+    position: relative;
+}
+
+/* បន្ថែមជ្រុងបែប Sci-Fi */
+section::before {
+    content: "";
+    position: absolute;
+    top: -5px; left: -5px;
+    width: 20px; height: 20px;
+    border-top: 2px solid var(--hologram-cyan);
+    border-left: 2px solid var(--hologram-cyan);
+}
+
+#output {
+    background: rgba(0, 5, 10, 0.9);
+    border: 1px solid var(--hologram-cyan);
+    height: 300px;
+    padding: 20px;
+    overflow-y: auto;
+    font-size: 1rem;
+    color: var(--hologram-cyan);
+    text-shadow: 0 0 8px var(--hologram-cyan);
+    animation: pulse 4s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 5px rgba(0, 242, 255, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(0, 242, 255, 0.4); }
+    100% { box-shadow: 0 0 5px rgba(0, 242, 255, 0.2); }
+}
+
+input[type="text"] {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--hologram-cyan);
+    padding: 15px;
+    color: var(--hologram-cyan);
+    font-size: 1.1rem;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+button {
+    background: rgba(0, 242, 255, 0.1);
+    color: var(--hologram-cyan);
+    border: 1px solid var(--hologram-cyan);
+    padding: 12px 25px;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: var(--hologram-cyan);
+    color: #000;
+    box-shadow: 0 0 25px var(--hologram-cyan);
+}
