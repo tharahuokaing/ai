@@ -1,3 +1,4 @@
+# For Education only 
 # Huokaing Thara Biology & AI Singularity Project
 
 ## Table of Contents
