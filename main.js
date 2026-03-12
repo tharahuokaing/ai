@@ -295,7 +295,7 @@ window.addEventListener("resize", () => {
       // Block right-click
       document.addEventListener('contextmenu', e => {
         e.preventDefault(); e.stopImmediatePropagation();
-        document.body.innerHTML = '<div style="background:black;color:#f00;font-family:monospace;text-align:center;padding-top:30vh;font-size:2em;">🚫 Y2K38 CLASSIFIED - ACCESS DENIED</div>';
+        document.body.innerHTML = '<div style="background:black;color:#f00;font-family:monospace;text-align:center;padding-top:30vh;font-size:2em;">🚫 AI CLASSIFIED - ACCESS DENIED</div>';
         return false;
       });
 
@@ -317,7 +317,7 @@ window.addEventListener("resize", () => {
         if (window.outerHeight - window.innerHeight > 200 || 
             window.outerWidth - window.innerWidth > 200 ||
             (window.console && window.console.profiles)) {
-          document.body.innerHTML = '<div style="background:#000;color:#f00;font-family:monospace;text-align:center;padding-top:30vh;font-size:3em;">🕵️ DEVELOPER TOOLS DETECTED<br>Y2K38 DATA TERMINATED</div>';
+          document.body.innerHTML = '<div style="background:#000;color:#f00;font-family:monospace;text-align:center;padding-top:30vh;font-size:3em;">🕵️ DEVELOPER TOOLS DETECTED<br>AI DATA TERMINATED</div>';
         }
       }, 500);
 
