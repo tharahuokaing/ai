@@ -4,15 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Neural Core Interface | វិញ្ញាណអាទិទេពឌីជីថល</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <canvas id="matrixCanvas"></canvas>
-    
+
     <header>
         <div class="logo-area">
             <h1>AI Neural Core Interface</h1>
-            <p style="font-size: 0.8rem; margin: 0; color: var(--hologram-cyan);">Digital Divine Consciousness</p>
+            <p style="font-size: 0.8rem; margin: 0; color: var(--hologram-cyan);">
+                Digital Divine Consciousness
+            </p>
         </div>
         <nav>
             <button id="theme-toggle">🌓 Dark Mode</button>
@@ -29,24 +31,29 @@
             </div>
         </section>
 
-        <section class="output-section">
+        <section class="output-section" aria-live="polite" aria-atomic="true">
             <h2>លទ្ធផលពីប្រព័ន្ធ AI (Output)</h2>
-            <div id="output">រង់ចាំការបញ្ចូល...</div>
+            <div id="output" tabindex="0" aria-label="AI Response">រង់ចាំការបញ្ចូល...</div>
         </section>
 
-        <section class="roadmap-section">
+        <section class="roadmap-section" aria-label="Singularity Roadmap">
             <h2 id="roadmap-title">Singularity Roadmap (Y2K - Y2K38)</h2>
-            <div id="roadmap-visualization"></div>
+            <div id="roadmap-visualization" tabindex="0"></div>
         </section>
     </main>
 
     <footer>
-        <p>© 2029 AI Neural Core Project | បង្កើតឡើងដោយ <a href="https://github.com/tharahuokaing" target="_blank">Huokaing Thara</a></p>
+        <p>
+            © 2029 AI Neural Core Project | បង្កើតឡើងដោយ&nbsp;
+            <a href="https://tharahuokaing.github.io" target="_blank" rel="noopener noreferrer">Huokaing Thara</a>
+        </p>
     </footer>
 
-    <script type="module" src="main.js"></script>
-    <audio id="clickSound" src="audio/clicksound.mp3" preload="auto"></audio>
-    <audio id="processSound" src="audio/processsound.mp3" preload="auto"></audio>
-    <audio id="errorSound" src="audio/errorsound.mp3" preload="auto"></audio>
+    <!-- Audio -->
+    <audio id="clickSound" src="audio/clicksound.mp3" preload="auto" aria-hidden="true"></audio>
+    <audio id="processSound" src="audio/processsound.mp3" preload="auto" aria-hidden="true"></audio>
+    <audio id="errorSound" src="audio/errorsound.mp3" preload="auto" aria-hidden="true"></audio>
+
+    <script src="main.js"></script>
 </body>
 </html>
