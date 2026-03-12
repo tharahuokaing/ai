@@ -1,215 +1,368 @@
-/* styles.css - Ultimate Hologram & Matrix Edition */
+/* -------------------------
+   AI Neural Core Interface v2
+   Fully Local Sentient AI
+   Focus: Y2K38 Problem Solution
+--------------------------*/
 
+/* --- CSS Variables --- */
 :root {
-    --hologram-cyan: #00f2ff;
-    --hologram-blue: #0041ff;
-    --matrix-green: rgba(0, 255, 70, 0.15); /* ពណ៌ Matrix ស្រាលៗ */
-    --glass-bg: rgba(0, 15, 30, 0.85);
-    --primary-bg: #00050a;
+    --hologram-cyan: #00ffff;
+    --hologram-purple: #b19cd9;
+    --hologram-warning: #ff6f61;
+    --bg-dark: #0a0a0a;
+    --bg-light: #f4f4f4;
+    --text-dark: #00ffff;
+    --text-light: #0a0a0a;
+    --section-bg: rgba(10, 10, 10, 0.75);
+    --section-bg-light: rgba(255, 255, 255, 0.85);
+    --font-family: 'Courier New', Courier, monospace;
 }
 
+/* --- Reset & Base --- */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
 }
 
-/* រៀបចំ Matrix Background */
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    position: relative;
+    line-height: 1.4;
+}
+
+/* --- Canvas Matrix --- */
 #matrixCanvas {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* ដាក់នៅក្រោយគេបង្អស់ */
-    opacity: 0.3; /* កុំឱ្យវាច្បាស់ពេក រំខានភ្នែក */
+    z-index: -1;
 }
 
-body {
-    font-family: 'Courier New', Courier, monospace;
-    background-color: var(--primary-bg);
-    color: var(--hologram-cyan);
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-/* ឥទ្ធិពលខ្សែស្កេន Hologram */
-body::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 242, 255, 0.05) 50%),
-                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-    background-size: 100% 3px, 3px 100%;
-    pointer-events: none;
-    z-index: 1000;
-}
-
+/* --- Header --- */
 header {
-    background: var(--glass-bg);
-    border-bottom: 2px solid var(--hologram-cyan);
-    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+    padding: 15px 30px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    border-bottom: 2px solid var(--hologram-cyan);
+    box-shadow: 0 0 12px var(--hologram-cyan);
+    user-select: none;
 }
 
-/* ឥទ្ធិពលអក្សររំញ័រ (Glitch Effect) */
-h1 {
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
-    animation: glitch 3s infinite;
-}
-
-@keyframes glitch {
-    0% { text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; }
-    50% { text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff; }
-    100% { text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff; }
-}
-
-main {
-    max-width: 1000px;
-    margin: 30px auto;
-    padding: 0 20px;
-}
-
-section {
-    background: var(--glass-bg);
-    border: 1px solid var(--hologram-cyan);
-    border-radius: 2px;
-    padding: 25px;
-    margin-bottom: 30px;
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.1), inset 0 0 10px rgba(0, 242, 255, 0.05);
-    position: relative;
-}
-
-/* បន្ថែមជ្រុងបែប Sci-Fi */
-section::before {
-    content: "";
-    position: absolute;
-    top: -5px; left: -5px;
-    width: 20px; height: 20px;
-    border-top: 2px solid var(--hologram-cyan);
-    border-left: 2px solid var(--hologram-cyan);
-}
-
-#output {
-    background: rgba(0, 5, 10, 0.9);
-    border: 1px solid var(--hologram-cyan);
-    height: 300px;
-    padding: 20px;
-    overflow-y: auto;
-    font-size: 1rem;
+.logo-area h1 {
     color: var(--hologram-cyan);
-    text-shadow: 0 0 8px var(--hologram-cyan);
-    animation: pulse 4s infinite;
+    font-size: 2rem;
+    text-shadow: 0 0 10px var(--hologram-cyan);
+    font-weight: 700;
 }
 
-@keyframes pulse {
-    0% { box-shadow: 0 0 5px rgba(0, 242, 255, 0.2); }
-    50% { box-shadow: 0 0 20px rgba(0, 242, 255, 0.4); }
-    100% { box-shadow: 0 0 5px rgba(0, 242, 255, 0.2); }
+.logo-area p {
+    font-size: 0.85rem;
+    color: var(--hologram-purple);
+    font-style: italic;
+    margin-top: 4px;
+    text-shadow: 0 0 6px var(--hologram-purple);
 }
 
-input[type="text"] {
-    width: 100%;
+nav button {
     background: transparent;
-    border: 1px solid var(--hologram-cyan);
-    padding: 15px;
+    border: 2px solid var(--hologram-cyan);
     color: var(--hologram-cyan);
+    padding: 8px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 0 8px var(--hologram-cyan);
+    user-select: none;
+}
+
+nav button:hover, nav button:focus {
+    background: var(--hologram-cyan);
+    color: #0a0a0a;
+    box-shadow: 0 0 20px var(--hologram-cyan);
+    outline: none;
+}
+
+/* --- Main Container --- */
+main {
+    padding: 60px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    max-width: 930px;
+    margin: 0 auto;
+}
+
+/* --- Input Section --- */
+.input-section {
+    background: var(--section-bg);
+    padding: 28px 32px;
+    border-radius: 14px;
+    border: 2px solid var(--hologram-cyan);
+    box-shadow: 0 0 18px rgba(0,255,255,0.35);
+}
+
+.input-section label {
+    font-size: 1.15rem;
+    color: var(--hologram-cyan);
+    font-weight: 700;
+    user-select: none;
+}
+
+.input-section > div {
+    display: flex;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.input-section input {
+    flex: 1;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 2px solid var(--hologram-cyan);
+    background: rgba(0,0,0,0.54);
+    color: var(--text-dark);
     font-size: 1.1rem;
     outline: none;
-    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 6px #00ffffa0;
+    user-select: text;
 }
 
-button {
-    background: rgba(0, 242, 255, 0.1);
+.input-section input::placeholder {
     color: var(--hologram-cyan);
-    border: 1px solid var(--hologram-cyan);
-    padding: 12px 25px;
+    opacity: 0.6;
+}
+
+.input-section input:focus {
+    border-color: var(--hologram-purple);
+    box-shadow: 0 0 18px var(--hologram-purple);
+}
+
+.input-section button {
+    padding: 13px 24px;
+    border-radius: 12px;
+    border: 2px solid var(--hologram-cyan);
+    background: rgba(0,0,0,0.54);
+    color: var(--text-dark);
     cursor: pointer;
-    font-weight: bold;
-    letter-spacing: 2px;
-    transition: 0.3s;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 8px var(--hologram-cyan);
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-button:hover {
+.input-section button:hover, .input-section button:focus {
     background: var(--hologram-cyan);
-    color: #000;
-    box-shadow: 0 0 25px var(--hologram-cyan);
+    color: #0a0a0a;
+    box-shadow: 0 0 22px var(--hologram-cyan);
+    outline: none;
 }
 
-.loading {
-    color: var(--hologram-cyan);
-    font-style: italic;
-    letter-spacing: 2px;
-    animation: blink 0.8s infinite;
+/* --- Output Section --- */
+.output-section {
+    background: var(--section-bg);
+    padding: 28px 32px;
+    border-radius: 14px;
+    border: 2px solid var(--hologram-purple);
+    box-shadow: 0 0 18px rgba(180,156,217,0.35);
 }
 
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0.3; }
-    100% { opacity: 1; }
+.output-section h2 {
+    color: var(--hologram-purple);
+    margin-bottom: 16px;
+    font-weight: 700;
+    text-shadow: 0 0 8px var(--hologram-purple);
 }
 
-/* ធ្វើឱ្យ Output Box មើលទៅដូចអេក្រង់កុំព្យូទ័រចាស់ */
 #output {
-    border-left: 4px solid var(--hologram-cyan);
-    background: linear-gradient(rgba(0, 242, 255, 0.02) 0%, rgba(0, 0, 0, 0.5) 100%);
-}
-
-#voiceButton {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--hologram-cyan);
+    min-height: 140px;
+    padding: 20px;
+    background: rgba(0,0,0,0.65);
+    border-radius: 12px;
+    border: 2px solid var(--hologram-purple);
     color: var(--hologram-cyan);
-    font-size: 1.2rem;
-    padding: 0 15px;
-    cursor: pointer;
-    transition: 0.3s ease;
+    font-size: 1.1rem;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    box-shadow: inset 0 0 12px var(--hologram-cyan);
 }
 
-#voiceButton:hover {
-    background: var(--hologram-cyan);
-    color: #000;
+/* --- Roadmap Section --- */
+.roadmap-section {
+    background: var(--section-bg);
+    padding: 28px 32px;
+    border-radius: 14px;
+    border: 2px solid var(--hologram-purple);
+    box-shadow: 0 0 18px rgba(180,156,217,0.35);
+    color: var(--hologram-cyan);
+    user-select: none;
 }
 
-/* ចលនាពេល AI កំពុងនិយាយត្រឡប់មកវិញ (ប្រសិនបើមាន) */
-.speaking {
-    animation: voiceWave 1s infinite alternate;
+.roadmap-section h2 {
+    color: var(--hologram-purple);
+    margin-bottom: 14px;
+    font-weight: 700;
+    text-shadow: 0 0 8px var(--hologram-purple);
 }
 
-@keyframes voiceWave {
-    from { transform: scale(1); }
-    to { transform: scale(1.1); box-shadow: 0 0 15px var(--hologram-cyan); }
+#roadmap-visualization {
+    background: rgba(0,0,0,0.45);
+    color: var(--hologram-cyan);
+    padding: 22px;
+    border-radius: 12px;
+    min-height: 140px;
+    font-size: 1rem;
+    line-height: 1.55;
+    box-shadow: inset 0 0 15px var(--hologram-cyan);
+    user-select: text;
 }
 
-/* styles.css - បន្ថែមស្ទីលសម្រាប់ Roadmap Item */
-
-.roadmap-item {
-    border-left: 2px solid var(--hologram-cyan);
-    margin-left: 20px;
-    padding: 15px;
-    position: relative;
-    background: rgba(0, 242, 255, 0.05);
-    margin-bottom: 20px;
-    transition: 0.5s;
+.roadmap-section ul {
+    list-style-type: disc;
+    margin-left: 22px;
+    color: var(--hologram-purple);
 }
 
-/* ស្ទីលពិសេសសម្រាប់ឆ្នាំ ២០៣៨ */
-.roadmap-item[data-year="Y2K38 (2038)"] {
-    border-left: 2px solid #ff4444; /* ពណ៌ក្រហមព្រមាន */
-    box-shadow: 0 0 20px rgba(255, 68, 68, 0.2);
-    animation: criticalAlert 2s infinite;
+.roadmap-section p.warning {
+    color: var(--hologram-warning);
+    font-weight: 600;
+    font-style: normal;
 }
 
-@keyframes criticalAlert {
-    0% { border-color: #ff4444; }
-    50% { border-color: #00f2ff; }
-    100% { border-color: #ff4444; }
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 18px 0;
+    background: rgba(0,0,0,0.7);
+    border-top: 2px solid var(--hologram-cyan);
+    color: var(--hologram-cyan);
+    font-size: 0.95rem;
+    font-weight: 500;
+    user-select: none;
+    box-shadow: 0 0 10px var(--hologram-cyan);
+    font-style: italic;
+}
+
+footer a {
+    color: var(--hologram-purple);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+footer a:hover,
+footer a:focus {
+    text-decoration: underline;
+    color: var(--hologram-cyan);
+    outline: none;
+}
+
+/* --- Dark Mode Toggle --- */
+body.light-mode {
+    background-color: var(--bg-light);
+    color: var(--text-light);
+}
+
+body.light-mode #output,
+body.light-mode .input-section,
+body.light-mode .roadmap-section {
+    background: var(--section-bg-light);
+    color: var(--text-light);
+    border-color: var(--hologram-purple);
+    box-shadow: 0 0 10px var(--hologram-purple);
+}
+
+body.light-mode header,
+body.light-mode footer {
+    background: rgba(255,255,255,0.8);
+    color: var(--text-light);
+    box-shadow: 0 0 8px var(--hologram-purple);
+}
+
+body.light-mode nav button {
+    border-color: var(--hologram-purple);
+    color: var(--hologram-purple);
+}
+
+body.light-mode nav button:hover,
+body.light-mode nav button:focus {
+    background: var(--hologram-purple);
+    color: var(--bg-light);
+    outline: none;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    main {
+        padding: 40px 20px;
+    }
+
+    header {
+        padding: 15px 20px;
+    }
+
+    .logo-area h1 {
+        font-size: 1.6rem;
+    }
+
+    .logo-area p {
+        font-size: 0.8rem;
+    }
+
+    .input-section input {
+        font-size: 1rem;
+    }
+
+    .input-section button {
+        font-size: 1rem;
+        padding: 10px 18px;
+    }
+
+    #output {
+        font-size: 1rem;
+    }
+
+    #roadmap-visualization {
+        font-size: 0.95rem;
+        min-height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+
+    main {
+        padding: 30px 12px;
+    }
+
+    .input-section > div {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    #output {
+        font-size: 0.9rem;
+    }
+
+    .input-section input,
+    .input-section button {
+        font-size: 0.95rem;
+    }
 }
