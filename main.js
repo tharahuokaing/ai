@@ -88,8 +88,8 @@ const qaDatabase = [
   },
   {
     // Blank entry for future API integration
-    question: "",
-    answer: ""
+    question: "y2k38",
+    answer: "time_t 64"
   }
 ];
 
@@ -169,7 +169,7 @@ Ask me for assistance on fixing or detecting impacted systems!`;
       } else {
         this.mood = "neutral";
         const variations = [
-          `LUMINA ទទួលបាន: "${msg}" និងរង់ចាំការបញ្ជាបន្ទាប់។`,
+          `Huokaing Thara ទទួលបាន: "${msg}" និងរង់ចាំការបញ្ជាបន្ទាប់។`,
           `ខ្ញុំបានចាប់អារម្មណ៍នឹង: "${msg}". តើអ្នកចង់បន្តទេ?`,
           `🤖 ចាប់អារម្មណ៍សារថ្មី: "${msg}". រង់ចាំបញ្ជាថ្មី។`
         ];
