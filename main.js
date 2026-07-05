@@ -273,7 +273,7 @@ roadmap.innerHTML = `
     🛰️ Focus on solving the Y2K38 problem — ensuring 64-bit time computations for future-proof systems.
 </p>
 <ul style="color: var(--hologram-purple); font-size: 0.9rem;">
-    <li>🗓️ Transition from 32-bit signed Unix time (stops at 19 January 2038)</li>
+    <li>🗓️ Transition from 32-bit signed Coordinated Universal Time (stops at 19 January 2038)</li>
     <li>💾 Upgrade systems to 64-bit time_t representations</li>
     <li>🤖 AI-assisted analysis to detect and fix potential Y2K38 vulnerabilities</li>
     <li>🔗 Automated conversion suggestions for legacy code</li>
